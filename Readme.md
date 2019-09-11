@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Anastasia Germanova](https://up.htmlacademy.ru/javascript/18/user/1019201).
-* Наставник: [Виталий Усик] (https://htmlacademy.ru/profile/id235226).
+* Наставник: [`Виталий Усик`] (https://htmlacademy.ru/profile/id235226).
 
 ---
 
