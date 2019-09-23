@@ -18,7 +18,7 @@ var DESCRIPTIONS = [
   'Не следует, однако забывать, что дальнейшее развитие различных форм деятельности обеспечивает широкому кругу (специалистов) участие в формировании системы обучения кадров, соответствует насущным потребностям.'
 ];
 
-var Likes = {
+var likes = {
   MIN: 15,
   MAX: 200
 };
@@ -41,7 +41,7 @@ var getPhotos = function (photosNumber) {
   for (var i = 0; i < photosNumber; i++) {
     photos[i] = {
       url: 'photos/' + (i + 1) + '.jpg',
-      likes: getRandomPoint(Likes.MIN, Likes.MAX),
+      likes: getRandomPoint(likes.MIN, likes.MAX),
       comments: getRandomElement(COMMENTS),
       description: getRandomElement(DESCRIPTIONS)
     };
