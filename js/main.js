@@ -9,7 +9,7 @@ var COMMENTS = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-var DESCRIBTIONS = [
+var DESCRIPTIONS = [
   'Товарищи! консультация с широким активом способствует подготовки и реализации систем массового участия.',
   'Повседневная практика показывает, что сложившаяся структура организации влечет за собой процесс внедрения и модернизации позиций, занимаемых участниками в отношении поставленных задач.',
   'Повседневная практика показывает, что сложившаяся структура организации позволяет оценить значение форм развития.',
@@ -18,10 +18,14 @@ var DESCRIBTIONS = [
   'Не следует, однако забывать, что дальнейшее развитие различных форм деятельности обеспечивает широкому кругу (специалистов) участие в формировании системы обучения кадров, соответствует насущным потребностям.'
 ];
 
-var LIKES = {
+var Likes = {
   MIN: 15,
   MAX: 200
 };
+
+var PHOTOSNUMBER = 25;
+
+var templateElement = document.querySelector('#picture').content;
 
 var getRandomPoint = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -32,22 +36,38 @@ var getRandomElement = function (arr) {
   return arr[randomindex];
 };
 
-var getPhotos = function () {
+var getPhotos = function (photosNumber) {
   var photos = [];
-  for (var i = 0; i < 25; i++) {
+  for (var i = 0; i < photosNumber; i++) {
     photos[i] = {
       url: 'photos/' + (i + 1) + '.jpg',
-      likes: getRandomPoint(LIKES.MIN, LIKES.MAX),
+      likes: getRandomPoint(Likes.MIN, Likes.MAX),
       comments: getRandomElement(COMMENTS),
-      description: getRandomElement(DESCRIBTIONS),
+      description: getRandomElement(DESCRIPTIONS)
     };
   }
   return photos;
 };
 
+var renderPhoto = function (photo) {
+  var pictureElement = templateElement.cloneNode(true);
+  pictureElement.querySelector('img').src = photo.url;
+  pictureElement.querySelector('.picture-comments').textContent = photo.comments.length;
+  pictureElement.querySelector('.picture-likes').textContent = photo.likes;
+  return pictureElement;
+};
+
+var renderPhotosArr = function (photos) {
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < photos.length; i++) {
+    fragment.appendChild(renderPhoto(photos[i]));
+  }
+  return fragment;
+};
+
 var init = function () {
-  getPhotos();
-  getRandomPoint();
+  var photos = getPhotos(PHOTOSNUMBER);
+  renderPhotosArr(photos);
 };
 
 init();
