@@ -18,14 +18,15 @@ var DESCRIPTIONS = [
   'Не следует, однако забывать, что дальнейшее развитие различных форм деятельности обеспечивает широкому кругу (специалистов) участие в формировании системы обучения кадров, соответствует насущным потребностям.'
 ];
 
-var likes = {
+var Likes = {
   MIN: 15,
   MAX: 200
 };
 
-var PHOTOSNUMBER = 25;
+var PHOTOS_NUMBER = 25;
 
 var templateElement = document.querySelector('#picture').content;
+var pictures = document.querySelector('.pictures');
 
 var getRandomPoint = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -41,7 +42,7 @@ var getPhotos = function (photosNumber) {
   for (var i = 0; i < photosNumber; i++) {
     photos[i] = {
       url: 'photos/' + (i + 1) + '.jpg',
-      likes: getRandomPoint(likes.MIN, likes.MAX),
+      likes: getRandomPoint(Likes.MIN, Likes.MAX),
       comments: getRandomElement(COMMENTS),
       description: getRandomElement(DESCRIPTIONS)
     };
@@ -66,8 +67,9 @@ var renderPhotosArr = function (photos) {
 };
 
 var init = function () {
-  var photos = getPhotos(PHOTOSNUMBER);
-  renderPhotosArr(photos);
+  var photos = getPhotos(PHOTOS_NUMBER);
+  var picturesElements = renderPhotosArr(photos);
+  pictures.appendChild(picturesElements);
 };
 
 init();
