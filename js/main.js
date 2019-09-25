@@ -99,7 +99,6 @@ var showBigPhoto = function (data) {
   hideItem(bigPicture.querySelector('.social__comment-count'));
   hideItem(bigPicture.querySelector('.comments-loader'));
   commentsBox.appendChild(createComments());
-  return showBigPhoto;
 };
 
 var init = function () {
