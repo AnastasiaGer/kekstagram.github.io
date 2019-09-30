@@ -14,19 +14,6 @@
     return array[Math.floor(Math.random() * array.length)];
   };
 
-  var getShuffled = function (array) {
-    var j;
-    var x;
-
-    for (var i = array.length - 1; i > 0; i--) {
-      j = Math.floor(Math.random() * (i + 1));
-      x = array[i];
-      array[i] = array[j];
-      array[j] = x;
-    }
-    return array;
-  };
-
   var isKeydownEsc = function (evt, callback) {
     if (evt.keyCode === keyCode.ESC) {
       callback();
@@ -42,7 +29,6 @@
   window.util = {
     getRandomNumber: getRandomNumber,
     getRandomValue: getRandomValue,
-    getShuffled: getShuffled,
     isKeydownEsc: isKeydownEsc,
     isKeydownEnter: isKeydownEnter,
   };
