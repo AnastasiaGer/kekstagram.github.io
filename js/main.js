@@ -25,6 +25,8 @@ var Likes = {
 
 var PHOTOS_NUMBER = 25;
 
+var HIDDEN_CLASS = 'hidden';
+
 var templateElement = document.querySelector('#picture').content;
 var pictures = document.querySelector('.pictures');
 
@@ -67,7 +69,7 @@ var renderPhotosArr = function (photos) {
 };
 
 var showItem = function (item) {
-  item.classList.remove('hidden');
+  item.classList.remove(HIDDEN_CLASS);
 };
 
 var hideItem = function (item) {
@@ -75,9 +77,9 @@ var hideItem = function (item) {
 };
 
 var closeBigPhoto = function () {
-  var bigPic = document.querySelector('.big-picture');
+  var bigPicElement = document.querySelector('.big-picture');
   document.querySelector('body').classList.remove('modal-open');
-  return bigPic.classList.add('hidden');
+  bigPicElement.classList.add(HIDDEN_CLASS);
 };
 
 var createComments = function () {
@@ -95,33 +97,33 @@ var createComments = function () {
 };
 
 var showBigPhoto = function (data) {
-  var bigPicture = document.querySelector('.big-picture');
-  var commentsBox = bigPicture.querySelector('.social__comments');
-  var closeButton = bigPicture.querySelector('#picture-cancel');
-  showItem(bigPicture);
-  bigPicture.querySelector('.big-picture__img').querySelector('img').src = data.url;
-  bigPicture.querySelector('.likes-count').textContent = data.likes;
-  bigPicture.querySelector('.comments-count').textContent = data.comments.length;
-  bigPicture.querySelector('.social__caption').textContent = data.description;
-  hideItem(bigPicture.querySelector('.social__comment-count'));
-  hideItem(bigPicture.querySelector('.comments-loader'));
+  var bigPictureElement = document.querySelector('.big-picture');
+  var commentsBox = bigPictureElement.querySelector('.social__comments');
+  var closeButton = bigPictureElement.querySelector('#picture-cancel');
+  showItem(bigPictureElement);
+  bigPictureElement.querySelector('.big-picture__img').querySelector('img').src = data.url;
+  bigPictureElement.querySelector('.likes-count').textContent = data.likes;
+  bigPictureElement.querySelector('.comments-count').textContent = data.comments.length;
+  bigPictureElement.querySelector('.social__caption').textContent = data.description;
+  hideItem(bigPictureElement.querySelector('.social__comment-count'));
+  hideItem(bigPictureElement.querySelector('.comments-loader'));
   closeButton.addEventListener('click', closeBigPhoto);
   commentsBox.appendChild(createComments());
 };
 
 // Загрузка изображения и показ формы редактирования
-var uploadPopap = document.querySelector('.img-upload__overlay');
-var uploadInput = document.querySelector('#upload-file');
-var btnCloseUpload = uploadPopap.querySelector('.img-upload__cancel');
-var textarea = uploadPopap.querySelector('.text__description');
-var inputHashtag = uploadPopap.querySelector('.text__hashtags');
-var form = document.querySelector('.img-upload__form');
+var uploadPopapElement = document.querySelector('.img-upload__overlay');
+var uploadInputElement = document.querySelector('#upload-file');
+var btnCloseUploadElement = uploadPopapElement.querySelector('.img-upload__cancel');
+var textareaElement = uploadPopapElement.querySelector('.text__description');
+var inputHashtagElement = uploadPopapElement.querySelector('.text__hashtags');
+var formElement = document.querySelector('.img-upload__form');
 
 var closeUploadOverlay = function () {
-  uploadPopap.classList.add('hidden');
-  btnCloseUpload.removeEventListener('click', closeUploadOverlay);
+  uploadPopapElement.classList.add(HIDDEN_CLASS);
+  btnCloseUploadElement.removeEventListener('click', closeUploadOverlay);
   document.removeEventListener('keydown', onOverlayKeydownEsc);
-  form.reset();
+  formElement.reset();
 };
 
 var onOverlayKeydownEsc = function (evt) {
@@ -129,8 +131,8 @@ var onOverlayKeydownEsc = function (evt) {
 };
 
 var onUploadInputChange = function () {
-  uploadPopap.classList.remove('hidden');
-  btnCloseUpload.addEventListener('click', closeUploadOverlay);
+  uploadPopapElement.classList.remove(HIDDEN_CLASS);
+  btnCloseUploadElement.addEventListener('click', closeUploadOverlay);
   document.addEventListener('keydown', onOverlayKeydownEsc);
   makeDeafultFilter();
 };
@@ -143,18 +145,17 @@ var onInputBlur = function () {
   document.addEventListener('keydown', onOverlayKeydownEsc);
 };
 
-uploadInput.addEventListener('change', onUploadInputChange);
-inputHashtag.addEventListener('focus', onInputFocus);
-inputHashtag.addEventListener('blur', onInputBlur);
-textarea.addEventListener('focus', onInputFocus);
-textarea.addEventListener('blur', onInputBlur);
+uploadInputElement.addEventListener('change', onUploadInputChange);
+inputHashtagElement.addEventListener('focus', onInputFocus);
+inputHashtagElement.addEventListener('blur', onInputBlur);
+textareaElement.addEventListener('focus', onInputFocus);
+textareaElement.addEventListener('blur', onInputBlur);
 
 // масштабирование редактируемого изображения
 var MIN_RESIZE = 25;
 var MAX_RESIZE = 100;
 var STEP_RESIZE = 25;
 
-var uploadImg = document.querySelector('.img-upload__preview');
 var resize = document.querySelector('.scale__control--value');
 var resizeSmaller = document.querySelector('.scale__control--smaller');
 var resizeBigger = document.querySelector('.scale__control--bigger');
@@ -166,13 +167,13 @@ var getCurentSizeNumber = function () {
 var sizeMinusHandler = function () {
   var newSizeNumber = getCurentSizeNumber() - STEP_RESIZE;
   resize.value = newSizeNumber + '%';
-  uploadImg.style = 'transform: scale(' + (newSizeNumber / 100) + ')';
+  UPLOAD_PREVIEW.style = 'transform: scale(' + (newSizeNumber / 100) + ')';
 };
 
 var sizePlusHandler = function () {
   var newSizeNumber = getCurentSizeNumber() + STEP_RESIZE;
   resize.value = newSizeNumber + '%';
-  uploadImg.style = 'transform: scale(' + (newSizeNumber / 100) + ')';
+  UPLOAD_PREVIEW.style = 'transform: scale(' + (newSizeNumber / 100) + ')';
 };
 
 resizeSmaller.addEventListener('click', function () {
@@ -188,7 +189,7 @@ resizeBigger.addEventListener('click', function () {
 });
 
 // наложение фильтров на редактируемоге изображение
-var pinPosition = {
+var PinPosition = {
   MIN: 0,
   MAX: 450
 };
@@ -230,29 +231,30 @@ var FilterCss = {
     min: 1
   }
 };
-
-var preview = document.querySelector('.img-upload__preview');
-var effectValue = document.querySelector('[name="effect-level"]');
-var line = document.querySelector('.effect-level__line');
-var pin = document.querySelector('.effect-level__pin');
-var blockPin = document.querySelector('.img-upload__effect-level');
-var effectList = document.querySelector('.effects__list');
+var UPLOAD_PREVIEW = document.querySelector('.img-upload__preview');
+var effectValueElement = document.querySelector('[name="effect-level"]');
+var lineElement = document.querySelector('.effect-level__line');
+var pinElement = document.querySelector('.effect-level__pin');
+var lineDepthElement = document.querySelector('.effect-level__depth');
+var blockPinElement = document.querySelector('.img-upload__effect-level');
+var effectListElement = document.querySelector('.effects__list');
 
 var makeValueFilter = function (value) {
-  pin.style.left = value + 'px';
-  line.style.width = value + 'px';
+  pinElement.style.left = value + 'px';
+  lineElement.style.width = value + 'px';
+  lineDepthElement.style.width = value + 'px';
 };
 
 var filterChange = function (max, min, filter, position, filterPostfix) {
   var postFix = filterPostfix || '';
-  var value = (max - min) * (position / pinPosition.MAX) + min;
+  var value = (max - min) * (position / PinPosition.MAX) + min;
   var change = '' + filter + '(' + value + postFix + ')';
 
-  preview.style.filter = change;
-  effectValue.value = value;
+  UPLOAD_PREVIEW.style.filter = change;
+  effectValueElement.value = value;
 };
 
-pin.addEventListener('mousedown', function (evt) {
+pinElement.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
   var selectedFilter = document.querySelector('input[type="radio"]:checked').value;
   var startCoords = evt.clientX;
@@ -261,15 +263,15 @@ pin.addEventListener('mousedown', function (evt) {
     moveEvt.preventDefault();
 
     var shift = startCoords - moveEvt.clientX;
-    var position = pin.offsetLeft - shift;
+    var position = pinElement.offsetLeft - shift;
     startCoords = moveEvt.clientX;
 
-    if (position <= pinPosition.MIN) {
-      position = pinPosition.MIN;
+    if (position <= PinPosition.MIN) {
+      position = PinPosition.MIN;
     }
 
-    if (position > pinPosition.MAX) {
-      position = pinPosition.MAX;
+    if (position > PinPosition.MAX) {
+      position = PinPosition.MAX;
     }
 
     makeValueFilter(position);
@@ -288,31 +290,35 @@ pin.addEventListener('mousedown', function (evt) {
 });
 
 var cheskScaleShow = function (elem) {
-  return elem.value !== 'none' ? blockPin.classList.remove('hidden') : blockPin.classList.add('hidden');
+  if (elem.value === 'none') {
+    blockPinElement.classList.add(HIDDEN_CLASS);
+  } else {
+    blockPinElement.classList.remove(HIDDEN_CLASS);
+  }
 };
 
-effectList.addEventListener('click', function (evt) {
+effectListElement.addEventListener('click', function (evt) {
   var toggler = evt.target.closest('input');
   if (toggler) {
-    makeValueFilter(pinPosition.MAX);
-    preview.classList = 'img-upload__preview';
-    preview.removeAttribute('style');
-    preview.classList.add(FilterCss[toggler.value].class);
+    makeValueFilter(PinPosition.MAX);
+    UPLOAD_PREVIEW.classList = 'img-upload__preview';
+    UPLOAD_PREVIEW.removeAttribute('style');
+    UPLOAD_PREVIEW.classList.add(FilterCss[toggler.value].class);
     cheskScaleShow(toggler);
   }
 });
 
 var makeDeafultFilter = function () {
-  makeValueFilter(pinPosition.MAX);
-  preview.removeAttribute('style');
-  blockPin.classList.add('hidden');
-  preview.classList = 'img-upload__preview';
+  makeValueFilter(PinPosition.MAX);
+  UPLOAD_PREVIEW.removeAttribute('style');
+  blockPinElement.classList.add(HIDDEN_CLASS);
+  UPLOAD_PREVIEW.classList = 'img-upload__preview';
 };
 
 // Валидация строки с хэш-тегами
-var submitButton = document.querySelector('#upload-submit');
+var submitButtonElement = document.querySelector('#upload-submit');
 
-var HestagData = {
+var HashtagData = {
   START_POSITION: 0,
   MAX_COUNT: 5,
   MIN_LENGTH: 2,
@@ -321,35 +327,35 @@ var HestagData = {
 };
 
 var Message = {
-  HESTAG_START: 'Хэш-тег начинается с символа #',
-  HESTAG_MIN_SYMBOL: 'Хеш-тег не может состоять только из одной решётки',
-  HESTAG_MAX_LENGTH: 'Максимальная длина одного хэш-тега ',
-  HESTAG_VALUE_INCLUSIVE: ' имволов, включая решётку',
-  HESTAG_NO_REPEAT: 'Один и тот же хэш-тег не может быть использован дважды',
-  HESTAG_MAX_NUMBER: 'Хэштегов может быть максимум ',
-  HESTAG_SEPARATOR: 'Хэш-теги разделяются пробелами'
+  HASHTAG_START: 'Хэш-тег начинается с символа #',
+  HASHTAG_MIN_SYMBOL: 'Хеш-тег не может состоять только из одной решётки',
+  HASHTAG_MAX_LENGTH: 'Максимальная длина одного хэш-тега ',
+  HASHTAG_VALUE_INCLUSIVE: ' имволов, включая решётку',
+  HASHTAG_NO_REPEAT: 'Один и тот же хэш-тег не может быть использован дважды',
+  HASHTAG_MAX_NUMBER: 'Хэштегов может быть максимум ',
+  HASHTAG_SEPARATOR: 'Хэш-теги разделяются пробелами'
 };
 
 var validateHashtag = function (hashtag) {
-  if (hashtag[HestagData.START_POSITION] !== '#') {
-    inputHashtag.setCustomValidity(Message.HESTAG_START);
+  if (hashtag[HashtagData.START_POSITION] !== '#') {
+    inputHashtagElement.setCustomValidity(Message.HASHTAG_START);
     return false;
-  } else if (hashtag.length < HestagData.MIN_LENGTH) {
-    inputHashtag.setCustomValidity(Message.HESTAG_MIN_SYMBOL);
+  } else if (hashtag.length < HashtagData.MIN_LENGTH) {
+    inputHashtagElement.setCustomValidity(Message.HASHTAG_MIN_SYMBOL);
     return false;
-  } else if (hashtag.length > HestagData.MAX_LENGTH) {
-    inputHashtag.setCustomValidity(Message.HESTAG_MAX_LENGTH + HestagData.MAX_LENGTH + Message.HESTAG_VALUE_INCLUSIVE);
+  } else if (hashtag.length > HashtagData.MAX_LENGTH) {
+    inputHashtagElement.setCustomValidity(Message.HASHTAG_MAX_LENGTH + HashtagData.MAX_LENGTH + Message.HASHTAG_VALUE_INCLUSIVE);
     return false;
-  } else if (hashtag.indexOf('#', HestagData.VALID_POSITION) > 0) {
-    inputHashtag.setCustomValidity(Message.HESTAG_SEPARATOR);
+  } else if (hashtag.indexOf('#', HashtagData.VALID_POSITION) > 0) {
+    inputHashtagElement.setCustomValidity(Message.HASHTAG_SEPARATOR);
     return false;
   }
   return true;
 };
 
 var onSubmitButtonClick = function (evt) {
-  if (inputHashtag.value !== '') {
-    var hashtagArray = inputHashtag.value.toLowerCase().split(' ');
+  if (inputHashtagElement.value !== '') {
+    var hashtagArray = inputHashtagElement.value.toLowerCase().split(' ');
     for (var i = 0; i < hashtagArray.length; i++) {
       var isHashtagValid = validateHashtag(hashtagArray[i]);
       if (!isHashtagValid) {
@@ -357,34 +363,32 @@ var onSubmitButtonClick = function (evt) {
       }
       var positionNextHashtag = i + 1;
       if (hashtagArray.indexOf(hashtagArray[i], positionNextHashtag) > 0) {
-        inputHashtag.setCustomValidity(Message.HESTAG_NO_REPEAT);
+        inputHashtagElement.setCustomValidity(Message.HASHTAG_NO_REPEAT);
         break;
       }
     }
-    if (hashtagArray.length > HestagData.MAX_COUNT) {
-      inputHashtag.setCustomValidity(Message.HESTAG_MAX_NUMBER + HestagData.MAX_COUNT);
+    if (hashtagArray.length > HashtagData.MAX_COUNT) {
+      inputHashtagElement.setCustomValidity(Message.HASHTAG_MAX_NUMBER + HashtagData.MAX_COUNT);
     }
   }
 
-  if (!inputHashtag.validationMessage) {
+  if (!inputHashtagElement.validationMessage) {
     evt.preventDefault();
   }
 };
 
-var onInputInput = function () {
-  inputHashtag.setCustomValidity('');
+var onHashtagInput = function () {
+  inputHashtagElement.setCustomValidity('');
 };
 
-submitButton.addEventListener('click', onSubmitButtonClick);
-inputHashtag.addEventListener('input', onInputInput);
+submitButtonElement.addEventListener('click', onSubmitButtonClick);
+inputHashtagElement.addEventListener('input', onHashtagInput);
 
 var init = function () {
   var photos = getPhotos(PHOTOS_NUMBER);
   var picturesElements = renderPhotosArr(photos);
   pictures.appendChild(picturesElements);
   showBigPhoto(photos[0]);
-  closeUploadOverlay();
-  makeDeafultFilter();
 };
 
 init();
