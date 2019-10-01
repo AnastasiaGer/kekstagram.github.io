@@ -156,6 +156,7 @@ var MIN_RESIZE = 25;
 var MAX_RESIZE = 100;
 var STEP_RESIZE = 25;
 
+var uploadImg = document.querySelector('.img-upload__preview');
 var resize = document.querySelector('.scale__control--value');
 var resizeSmaller = document.querySelector('.scale__control--smaller');
 var resizeBigger = document.querySelector('.scale__control--bigger');
@@ -167,13 +168,13 @@ var getCurentSizeNumber = function () {
 var sizeMinusHandler = function () {
   var newSizeNumber = getCurentSizeNumber() - STEP_RESIZE;
   resize.value = newSizeNumber + '%';
-  UPLOAD_PREVIEW.style = 'transform: scale(' + (newSizeNumber / 100) + ')';
+  uploadImg.style = 'transform: scale(' + (newSizeNumber / 100) + ')';
 };
 
 var sizePlusHandler = function () {
   var newSizeNumber = getCurentSizeNumber() + STEP_RESIZE;
   resize.value = newSizeNumber + '%';
-  UPLOAD_PREVIEW.style = 'transform: scale(' + (newSizeNumber / 100) + ')';
+  uploadImg.style = 'transform: scale(' + (newSizeNumber / 100) + ')';
 };
 
 resizeSmaller.addEventListener('click', function () {
@@ -231,7 +232,9 @@ var FilterCss = {
     min: 1
   }
 };
-var UPLOAD_PREVIEW = document.querySelector('.img-upload__preview');
+var UPLOAD_PREVIEW = 'img-upload__preview';
+
+var previewElement = document.querySelector('.img-upload__preview');
 var effectValueElement = document.querySelector('[name="effect-level"]');
 var lineElement = document.querySelector('.effect-level__line');
 var pinElement = document.querySelector('.effect-level__pin');
@@ -250,7 +253,7 @@ var filterChange = function (max, min, filter, position, filterPostfix) {
   var value = (max - min) * (position / PinPosition.MAX) + min;
   var change = '' + filter + '(' + value + postFix + ')';
 
-  UPLOAD_PREVIEW.style.filter = change;
+  previewElement.style.filter = change;
   effectValueElement.value = value;
 };
 
@@ -301,18 +304,18 @@ effectListElement.addEventListener('click', function (evt) {
   var toggler = evt.target.closest('input');
   if (toggler) {
     makeValueFilter(PinPosition.MAX);
-    UPLOAD_PREVIEW.classList = 'img-upload__preview';
-    UPLOAD_PREVIEW.removeAttribute('style');
-    UPLOAD_PREVIEW.classList.add(FilterCss[toggler.value].class);
+    previewElement.classList = UPLOAD_PREVIEW;
+    previewElement.removeAttribute('style');
+    previewElement.classList.add(FilterCss[toggler.value].class);
     cheskScaleShow(toggler);
   }
 });
 
 var makeDeafultFilter = function () {
   makeValueFilter(PinPosition.MAX);
-  UPLOAD_PREVIEW.removeAttribute('style');
+  previewElement.removeAttribute('style');
   blockPinElement.classList.add(HIDDEN_CLASS);
-  UPLOAD_PREVIEW.classList = 'img-upload__preview';
+  previewElement.classList = UPLOAD_PREVIEW;
 };
 
 // Валидация строки с хэш-тегами
