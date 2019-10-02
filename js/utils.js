@@ -4,7 +4,7 @@
   var HIDDEN_CLASS = 'hidden';
   var KeyCode = {
     ESC: 27
-  }
+  };
 
   var isKeydownEsc = function (evt, callback) {
     if (evt.KeyCode === KeyCode.ESC) {
