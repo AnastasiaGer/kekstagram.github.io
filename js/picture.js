@@ -1,10 +1,9 @@
 'use strict';
 
 (function () {
-  var HIDDEN_CLASS = 'hidden';
 
   var showItem = function (item) {
-    item.classList.remove(HIDDEN_CLASS);
+    window.utils.showElement(item);
   };
 
   var hideItem = function (item) {
@@ -14,7 +13,7 @@
   var closeBigPhoto = function () {
     var bigPicElement = document.querySelector('.big-picture');
     document.querySelector('body').classList.remove('modal-open');
-    bigPicElement.classList.add(HIDDEN_CLASS);
+    window.utils.hideElement(bigPicElement);
   };
 
   var createComments = function () {

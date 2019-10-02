@@ -1,8 +1,16 @@
 'use strict';
 
 (function () {
-  var ESC_KEYCODE = 27;
-  var ENTER_KEYCODE = 13;
+  var keyCode = 27;
+
+  var isKeydownEsc = function (evt, callback) {
+    if (evt.keyCode === keyCode.ESC) {
+      callback();
+    }
+  };
+
+  var imageEditElement = document.querySelector('.img-upload__overlay');
+  var imageSetupElement = document.querySelector('#upload-file');
 
   var getRandomPoint = function (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -13,15 +21,21 @@
     return arr[randomindex];
   };
 
-  var imageEditElement = document.querySelector('.img-upload__overlay');
-  var imageSetupElement = document.querySelector('#upload-file');
+  var showElement = function (elem) {
+    elem.classList.remove('hidden');
+  };
+
+  var hideElement = function (elem) {
+    elem.classList.add('hidden');
+  };
 
   window.utils = {
+    isKeydownEsc: isKeydownEsc,
+    imageEditElement: imageEditElement,
+    imageSetupElement: imageSetupElement,
     getRandomPoint: getRandomPoint,
     getRandomElement: getRandomElement,
-    isKeydownEsc: ESC_KEYCODE,
-    isKeydownEnter: ENTER_KEYCODE,
-    imageEditElement: imageEditElement,
-    imageSetupElement: imageSetupElement
+    showElement: showElement,
+    hideElement: hideElement
   };
 })();

@@ -2,8 +2,7 @@
 
 (function () {
   // наложение фильтров на редактируемоге изображение
-
-  var HIDDEN_CLASS = 'hidden';
+  var UPLOAD_PREVIEW = 'img-upload__preview';
   var PinPosition = {
     MIN: 0,
     MAX: 450
@@ -46,7 +45,6 @@
       min: 1
     }
   };
-  var UPLOAD_PREVIEW = 'img-upload__preview';
 
   var previewElement = document.querySelector('.img-upload__preview');
   var effectValueElement = document.querySelector('[name="effect-level"]');
@@ -108,9 +106,9 @@
 
   var cheskScaleShow = function (elem) {
     if (elem.value === 'none') {
-      blockPinElement.classList.add(HIDDEN_CLASS);
+      window.utils.hideElement(blockPinElement);
     } else {
-      blockPinElement.classList.remove(HIDDEN_CLASS);
+      window.utils.showElement(blockPinElement);
     }
   };
 
@@ -128,7 +126,7 @@
   var makeDeafultFilter = function () {
     makeValueFilter(PinPosition.MAX);
     previewElement.removeAttribute('style');
-    blockPinElement.classList.add(HIDDEN_CLASS);
+    window.utils.hideElement(blockPinElement);
     previewElement.classList = UPLOAD_PREVIEW;
   };
   window.makeDeafultFilter = makeDeafultFilter;

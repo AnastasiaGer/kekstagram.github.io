@@ -26,7 +26,7 @@
   };
 
   var templateElement = document.querySelector('#picture').content;
-  var pictures = document.querySelector('.pictures');
+  var picturesElement = document.querySelector('.pictures');
 
   var getPhotos = function (photosNumber) {
     var photos = [];
@@ -60,7 +60,7 @@
   var init = function () {
     var photos = getPhotos(PHOTOS_NUMBER);
     var picturesElements = renderPhotosArr(photos);
-    pictures.appendChild(picturesElements);
+    picturesElement.appendChild(picturesElements);
 
   };
 
