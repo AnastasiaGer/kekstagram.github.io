@@ -7,7 +7,7 @@
   };
 
   var isKeydownEsc = function (evt, callback) {
-    if (evt.KeyCode === KeyCode.ESC) {
+    if (evt.keyCode === KeyCode.ESC) {
       callback();
     }
   };
