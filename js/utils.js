@@ -1,10 +1,13 @@
 'use strict';
 
 (function () {
-  var keyCode = 27;
+  var HIDDEN_CLASS = 'hidden';
+  var KeyCode = {
+    ESC: 27
+  }
 
   var isKeydownEsc = function (evt, callback) {
-    if (evt.keyCode === keyCode.ESC) {
+    if (evt.KeyCode === KeyCode.ESC) {
       callback();
     }
   };
@@ -22,11 +25,11 @@
   };
 
   var showElement = function (elem) {
-    elem.classList.remove('hidden');
+    elem.classList.remove(HIDDEN_CLASS);
   };
 
   var hideElement = function (elem) {
-    elem.classList.add('hidden');
+    elem.classList.add(HIDDEN_CLASS);
   };
 
   window.utils = {

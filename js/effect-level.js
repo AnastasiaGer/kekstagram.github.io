@@ -2,7 +2,7 @@
 
 (function () {
   // наложение фильтров на редактируемоге изображение
-  var UPLOAD_PREVIEW = 'img-upload__preview';
+  var UPLOAD_PREVIEW_CLASS = 'img-upload__preview';
   var PinPosition = {
     MIN: 0,
     MAX: 450
@@ -116,7 +116,7 @@
     var toggler = evt.target.closest('input');
     if (toggler) {
       makeValueFilter(PinPosition.MAX);
-      previewElement.classList = UPLOAD_PREVIEW;
+      previewElement.classList = UPLOAD_PREVIEW_CLASS;
       previewElement.removeAttribute('style');
       previewElement.classList.add(FilterCss[toggler.value].class);
       cheskScaleShow(toggler);
@@ -127,7 +127,7 @@
     makeValueFilter(PinPosition.MAX);
     previewElement.removeAttribute('style');
     window.utils.hideElement(blockPinElement);
-    previewElement.classList = UPLOAD_PREVIEW;
+    previewElement.classList = UPLOAD_PREVIEW_CLASS;
   };
   window.makeDeafultFilter = makeDeafultFilter;
 })();

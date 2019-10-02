@@ -26,6 +26,8 @@
   var inputHashtagElement = uploadPopapElement.querySelector('.text__hashtags');
   var formElement = document.querySelector('.img-upload__form');
 
+  var submitButtonElement = document.querySelector('#upload-submit');
+
   var closeUploadOverlay = function () {
     window.utils.hideElement(uploadPopapElement);
     btnCloseUploadElement.removeEventListener('click', closeUploadOverlay);
@@ -59,7 +61,6 @@
   textareaElement.addEventListener('blur', onInputBlur);
 
   // Валидация строки с хэш-тегами
-  var submitButtonElement = document.querySelector('#upload-submit');
 
   var validateHashtag = function (hashtag) {
     if (hashtag[HashtagData.START_POSITION] !== '#') {
