@@ -3,11 +3,18 @@
 (function () {
   var HIDDEN_CLASS = 'hidden';
   var KeyCode = {
-    ESC: 27
+    ESC: 27,
+    ENTER: 13
   };
 
   var isKeydownEsc = function (evt, callback) {
     if (evt.keyCode === KeyCode.ESC) {
+      callback();
+    }
+  };
+
+  var isKeydownEnter = function (evt, callback) {
+    if (evt.keyCode === KeyCode.ENTER) {
       callback();
     }
   };
@@ -34,6 +41,7 @@
 
   window.utils = {
     isKeydownEsc: isKeydownEsc,
+    isKeydownEnter: isKeydownEnter,
     imageEditElement: imageEditElement,
     imageSetupElement: imageSetupElement,
     getRandomPoint: getRandomPoint,
