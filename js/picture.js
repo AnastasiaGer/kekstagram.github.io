@@ -38,22 +38,19 @@
   };
 
   var showBigPhoto = function (data) {
+    var commentsBox = bigPictureElement.querySelector('.social__comments');
     window.utils.showElement(bigPictureElement);
     bigPictureElement.querySelector('.big-picture__img').querySelector('img').src = data.url;
     bigPictureElement.querySelector('.likes-count').textContent = data.likes;
     bigPictureElement.querySelector('.comments-count').textContent = data.comments.length;
     bigPictureElement.querySelector('.social__caption').textContent = data.description;
-    var commentsBox = bigPictureElement.querySelector('.social__comments');
     hideItem(bigPictureElement.querySelector('.social__comment-count'));
     hideItem(bigPictureElement.querySelector('.comments-loader'));
-    document.body.classList.add('modal-open');
+    document.querySelector('body').classList.add(MODAL_OPEN_CLASS);
     commentsBox.appendChild(createComments());
   };
-
-  showBigPhoto(window.gallery.photos[0]);
 
   window.picture = {
     showBigPhoto: showBigPhoto,
   };
-
 })();
