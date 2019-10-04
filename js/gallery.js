@@ -25,7 +25,7 @@
     MAX: 200
   };
 
-  var templateElement = document.querySelector('#picture').content.querySelector('.picture');
+  var pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
   var picturesElement = document.querySelector('.pictures');
 
   var getPhotos = function (photosNumber) {
@@ -42,7 +42,7 @@
   };
 
   var renderPhoto = function (photo) {
-    var pictureElement = templateElement.cloneNode(true);
+    var pictureElement = pictureTemplate.cloneNode(true);
     pictureElement.querySelector('.picture__img').src = photo.url;
     pictureElement.querySelector('.picture__comments').textContent = photo.comments.length;
     pictureElement.querySelector('.picture__likes').textContent = photo.likes;
@@ -67,10 +67,5 @@
   };
 
   init();
-
-  window.gallery = {
-    photos: [],
-    renderPhotosArr: renderPhotosArr
-  };
 
 })();

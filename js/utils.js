@@ -39,6 +39,18 @@
     elem.classList.add(HIDDEN_CLASS);
   };
 
+  var setInvalidClass = function (element) {
+    element.classList.add('invalid');
+  };
+
+  var unsetInvalidClass = function (element) {
+    element.classList.remove('invalid');
+  };
+
+  var checkInvalidClass = function (element) {
+    return element.classList.contains('invalid');
+  };
+
   window.utils = {
     isKeydownEsc: isKeydownEsc,
     isKeydownEnter: isKeydownEnter,
@@ -47,6 +59,9 @@
     getRandomPoint: getRandomPoint,
     getRandomElement: getRandomElement,
     showElement: showElement,
-    hideElement: hideElement
+    hideElement: hideElement,
+    setInvalidClass: setInvalidClass,
+    unsetInvalidClass: unsetInvalidClass,
+    checkInvalidClass: checkInvalidClass
   };
 })();
