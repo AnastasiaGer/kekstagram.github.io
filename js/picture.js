@@ -13,6 +13,7 @@
   var closeModal = function () {
     document.body.classList.remove(MODAL_OPEN_CLASS);
     window.utils.hideElement(bigPictureElement);
+    document.removeEventListener('keydown', closeModal);
   };
 
   document.addEventListener('keydown', function (evt) {
