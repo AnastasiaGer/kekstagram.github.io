@@ -24,6 +24,18 @@
     closeModal();
   });
 
+  bigPictureCancelElement.addEventListener('keydown', function () {
+    closeModal();
+  });
+
+  var onpictureElementKeydowEnter = function (evt) {
+    window.utils.isKeydownEnter(evt, showBigPhoto);
+  };
+
+  bigPictureElement.addEventListener('keydown', function () {
+    showBigPhoto();
+  });
+
   var createComments = function () {
     var comment = document.createElement('li');
     comment.classList.add('social__comment');
@@ -48,6 +60,7 @@
     hideItem(bigPictureElement.querySelector('.social__comment-count'));
     hideItem(bigPictureElement.querySelector('.comments-loader'));
     document.querySelector('body').classList.add(MODAL_OPEN_CLASS);
+    document.addEventListener('keydown', onpictureElementKeydowEnter);
     document.addEventListener('keydown', onModalKeydownEsc);
     commentsBox.appendChild(createComments());
   };

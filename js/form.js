@@ -18,6 +18,11 @@
     HASHTAG_SEPARATOR: 'Хэш-теги разделяются пробелами'
   };
 
+  var COMMENT_VALIDATION = {
+    maxLength: 140,
+    maxLengthMessage: 'Максимальная длина - 140 символов'
+  };
+
   // Загрузка изображения и показ формы редактирования
   var uploadPopapElement = document.querySelector('.img-upload__overlay');
   var uploadInputElement = document.querySelector('#upload-file');
@@ -107,6 +112,14 @@
     inputHashtagElement.setCustomValidity('');
   };
 
+  var checkMaxLength = function () {
+    var string = textareaElement.value;
+    if (string.length < COMMENT_VALIDATION.maxLength) {
+      textareaElement.setCustomValidity(COMMENT_VALIDATION.maxLengthMessage);
+    }
+  };
+
   submitButtonElement.addEventListener('click', onSubmitButtonClick);
   inputHashtagElement.addEventListener('input', onHashtagInput);
+  textareaElement.addEventListener('input', checkMaxLength);
 })();

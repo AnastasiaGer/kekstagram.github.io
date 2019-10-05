@@ -49,6 +49,9 @@
     pictureElement.addEventListener('click', function () {
       window.picture.showBigPhoto(photo);
     });
+    pictureElement.addEventListener('keydown', function () {
+      window.picture.showBigPhoto(photo);
+    });
     return pictureElement;
   };
 
