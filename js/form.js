@@ -18,9 +18,9 @@
     HASHTAG_SEPARATOR: 'Хэш-теги разделяются пробелами'
   };
 
-  var COMMENT_VALIDATION = {
-    maxLength: 140,
-    maxLengthMessage: 'Максимальная длина - 140 символов'
+  var CommentData = {
+    MAX_LENGTH: 140,
+    MAX_LENGTH_MESSAGE: 'Максимальная длина - 140 символов'
   };
 
   // Загрузка изображения и показ формы редактирования
@@ -37,6 +37,7 @@
     window.utils.hideElement(uploadPopapElement);
     btnCloseUploadElement.removeEventListener('click', closeUploadOverlay);
     document.removeEventListener('keydown', onOverlayKeydownEsc);
+    textareaElement.removeEventListener('input', onCommentInput);
     formElement.reset();
   };
 
@@ -48,6 +49,7 @@
     window.utils.showElement(uploadPopapElement);
     btnCloseUploadElement.addEventListener('click', closeUploadOverlay);
     document.addEventListener('keydown', onOverlayKeydownEsc);
+    textareaElement.addEventListener('input', onCommentInput);
     window.makeDeafultFilter();
   };
 
@@ -84,6 +86,17 @@
     return true;
   };
 
+  // Валидация строки с комментариями
+
+  var checkMaxLength = function () {
+    var string = textareaElement.value;
+    if (string.length > CommentData.MAX_LENGTH) {
+      textareaElement.setCustomValidity(CommentData.MAX_LENGTH_MESSAGE);
+      return false;
+    }
+    return true;
+  };
+
   var onSubmitButtonClick = function (evt) {
     if (inputHashtagElement.value !== '') {
       var hashtagArray = inputHashtagElement.value.toLowerCase().split(' ');
@@ -106,20 +119,34 @@
     if (!inputHashtagElement.validationMessage) {
       evt.preventDefault();
     }
+
+    if (textareaElement.value !== '') {
+      var commentArray = textareaElement.value.toLowerCase().split(' ');
+      for (var j = 0; j < commentArray.length; j++) {
+        var isCommentValid = checkMaxLength(commentArray[j]);
+        if (!isCommentValid) {
+          break;
+        }
+      }
+      if (commentArray.length > CommentData.MAX_LENGTH) {
+        textareaElement.setCustomValidity(CommentData.MAX_LENGTH_MESSAGE);
+      }
+    }
+
+    if (!textareaElement.validationMessage) {
+      evt.preventDefault();
+    }
   };
 
   var onHashtagInput = function () {
     inputHashtagElement.setCustomValidity('');
   };
 
-  var checkMaxLength = function () {
-    var string = textareaElement.value;
-    if (string.length < COMMENT_VALIDATION.maxLength) {
-      textareaElement.setCustomValidity(COMMENT_VALIDATION.maxLengthMessage);
-    }
+  var onCommentInput = function () {
+    textareaElement.setCustomValidity('');
   };
 
   submitButtonElement.addEventListener('click', onSubmitButtonClick);
   inputHashtagElement.addEventListener('input', onHashtagInput);
-  textareaElement.addEventListener('input', checkMaxLength);
+  textareaElement.addEventListener('input', onCommentInput);
 })();
