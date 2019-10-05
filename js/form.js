@@ -18,6 +18,11 @@
     HASHTAG_SEPARATOR: 'Хэш-теги разделяются пробелами'
   };
 
+  var CommentData = {
+    MAX_LENGTH: 140,
+    MAX_LENGTH_MESSAGE: 'Максимальная длина - 140 символов'
+  };
+
   // Загрузка изображения и показ формы редактирования
   var uploadPopapElement = document.querySelector('.img-upload__overlay');
   var uploadInputElement = document.querySelector('#upload-file');
@@ -32,6 +37,7 @@
     window.utils.hideElement(uploadPopapElement);
     btnCloseUploadElement.removeEventListener('click', closeUploadOverlay);
     document.removeEventListener('keydown', onOverlayKeydownEsc);
+    textareaElement.removeEventListener('input', onCommentInput);
     formElement.reset();
   };
 
@@ -43,6 +49,7 @@
     window.utils.showElement(uploadPopapElement);
     btnCloseUploadElement.addEventListener('click', closeUploadOverlay);
     document.addEventListener('keydown', onOverlayKeydownEsc);
+    textareaElement.addEventListener('input', onCommentInput);
     window.makeDeafultFilter();
   };
 
@@ -79,6 +86,17 @@
     return true;
   };
 
+  // Валидация строки с комментариями
+
+  var checkMaxLength = function () {
+    var string = textareaElement.value;
+    if (string.length > CommentData.MAX_LENGTH) {
+      textareaElement.setCustomValidity(CommentData.MAX_LENGTH_MESSAGE);
+      return false;
+    }
+    return true;
+  };
+
   var onSubmitButtonClick = function (evt) {
     if (inputHashtagElement.value !== '') {
       var hashtagArray = inputHashtagElement.value.toLowerCase().split(' ');
@@ -101,12 +119,34 @@
     if (!inputHashtagElement.validationMessage) {
       evt.preventDefault();
     }
+
+    if (textareaElement.value !== '') {
+      var commentArray = textareaElement.value.toLowerCase().split(' ');
+      for (var j = 0; j < commentArray.length; j++) {
+        var isCommentValid = checkMaxLength(commentArray[j]);
+        if (!isCommentValid) {
+          break;
+        }
+      }
+      if (commentArray.length > CommentData.MAX_LENGTH) {
+        textareaElement.setCustomValidity(CommentData.MAX_LENGTH_MESSAGE);
+      }
+    }
+
+    if (!textareaElement.validationMessage) {
+      evt.preventDefault();
+    }
   };
 
   var onHashtagInput = function () {
     inputHashtagElement.setCustomValidity('');
   };
 
+  var onCommentInput = function () {
+    textareaElement.setCustomValidity('');
+  };
+
   submitButtonElement.addEventListener('click', onSubmitButtonClick);
   inputHashtagElement.addEventListener('input', onHashtagInput);
+  textareaElement.addEventListener('input', onCommentInput);
 })();
