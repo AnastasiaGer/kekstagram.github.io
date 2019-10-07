@@ -146,6 +146,18 @@
     textareaElement.setCustomValidity('');
   };
 
+  var onSuccess = function () {
+    window.utils.hideElement(uploadPopapElement);
+    closeUploadOverlay();
+  };
+
+  formElement.addEventListener('submit', function (evt) {
+    if (onSubmitButtonClick.checkValidity()) {
+      window.backend.sendData(new FormData(formElement), onSuccess, window.setup.onRequestError, window.backend.URL_POST);
+      evt.preventDefault();
+    }
+  });
+
   submitButtonElement.addEventListener('click', onSubmitButtonClick);
   inputHashtagElement.addEventListener('input', onHashtagInput);
   textareaElement.addEventListener('input', onCommentInput);

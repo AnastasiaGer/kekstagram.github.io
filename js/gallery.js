@@ -63,6 +63,15 @@
     return fragment;
   };
 
+  var successHandler = function (data) {
+    window.gallery.photos = data.slice(0);
+    renderPhotosArr(window.gallery.photos);
+  };
+
+
+  window.backend.loadData(successHandler, window.backend.errorHandler);
+
+
   var init = function () {
     var photos = getPhotos(PHOTOS_NUMBER);
     var picturesElements = renderPhotosArr(photos);
@@ -70,5 +79,9 @@
   };
 
   init();
+
+  window.gallery = {
+    photos: []
+  };
 
 })();
