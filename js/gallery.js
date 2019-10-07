@@ -24,6 +24,7 @@
     MIN: 15,
     MAX: 200
   };
+  var LOAD_URL = 'https://js.dump.academy/kekstagram/data';
 
   var pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
   var picturesElement = document.querySelector('.pictures');
@@ -63,14 +64,12 @@
     return fragment;
   };
 
-  var successHandler = function (data) {
+  var onLoad = function (data) {
     window.gallery.photos = data.slice(0);
     renderPhotosArr(window.gallery.photos);
   };
 
-
-  window.backend.loadData(successHandler, window.backend.errorHandler);
-
+  window.backend.load(onLoad, window.backend.onRequestError, LOAD_URL);
 
   var init = function () {
     var photos = getPhotos(PHOTOS_NUMBER);
