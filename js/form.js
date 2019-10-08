@@ -8,7 +8,7 @@
     VALID_POSITION: 1
   };
 
-  var SAVE_URL = 'https://js.dump.academy/kekstagram';
+  /* var SAVE_URL = 'https://js.dump.academy/kekstagram';*/
 
   // Загрузка изображения и показ формы редактирования
   var uploadPopapElement = document.querySelector('.img-upload__overlay');
@@ -122,7 +122,7 @@
     inputHashtagElement.removeAttribute('style');
   };
 
-  var onSuccess = function () {
+  /* var onSuccess = function () {
     window.utils.hideElement(uploadPopapElement);
     closeUploadOverlay();
   };
@@ -130,11 +130,11 @@
   var formSubmitHandler = function (evt) {
     evt.preventDefault();
     window.backend.save(new FormData(formElement), onSuccess, window.backend.onRequestError, SAVE_URL);
-  };
+  };*/
 
   inputHashtagElement.addEventListener('input', hashTagsInvalidHandler);
   submitButtonElement.addEventListener('click', hashTagsInvalidHandler);
-  formElement.addEventListener('submit', formSubmitHandler);
+  /* formElement.addEventListener('submit', formSubmitHandler);*/
 
   window.form = {
     uploadPopapElement: uploadPopapElement
