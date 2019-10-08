@@ -135,4 +135,8 @@
   inputHashtagElement.addEventListener('input', hashTagsInvalidHandler);
   submitButtonElement.addEventListener('click', hashTagsInvalidHandler);
   formElement.addEventListener('submit', formSubmitHandler);
+
+  window.form = {
+    uploadPopapElement: uploadPopapElement
+  };
 })();
