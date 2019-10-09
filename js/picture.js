@@ -66,6 +66,6 @@
   };
 
   window.picture = {
-    showBigPhoto: showBigPhoto,
+    showBigPhoto: showBigPhoto
   };
 })();
