@@ -24,29 +24,16 @@
     return xhr;
   };
 
-  var onRequestError = function () {
-    window.utils.hideElement(window.form.uploadPopapElement);
-    var errorMessageTemplateElement = document.querySelector('#error').content.querySelector('.error');
-    var uploadErrorElement = errorMessageTemplateElement.cloneNode(true);
-    document.body.appendChild(uploadErrorElement);
-    window.utils.showElement(uploadErrorElement);
-
-    document.body.addEventListener('click', function () {
-      document.body.removeChild(uploadErrorElement);
-    });
-  };
-
   window.backend = {
     load: function (onSuccess, onError, url) {
       var xhr = makeXHR(onSuccess, onError);
       xhr.open('GET', url);
       xhr.send();
-    },
+    }
     /* save: function (data, onSuccess, onError, url) {
       var xhr = makeXHR(onSuccess, onError, url);
       xhr.open('POST', url);
       xhr.send(data);
     },*/
-    onRequestError: onRequestError
   };
 })();

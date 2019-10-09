@@ -2,8 +2,6 @@
 
 (function () {
 
-  var PHOTOS_NUMBER = 25;
-
   var LOAD_URL = 'https://js.dump.academy/kekstagram/data';
 
   var pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
@@ -25,12 +23,23 @@
 
   var renderPhotosArr = function (photos) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < PHOTOS_NUMBER; i++) {
+    for (var i = 0; i < photos.length; i++) {
       fragment.appendChild(renderPhoto(photos[i]));
     }
     picturesElement.appendChild(fragment);
   };
 
-  window.backend.load(renderPhotosArr, window.backend.onRequestError, LOAD_URL);
+  var onRequestError = function () {
+    var errorMessageTemplateElement = document.querySelector('#error').content.querySelector('.error');
+    var uploadErrorElement = errorMessageTemplateElement.cloneNode(true);
+    document.body.appendChild(uploadErrorElement);
+    window.utils.showElement(uploadErrorElement);
+
+    document.body.addEventListener('click', function () {
+      document.body.removeChild(uploadErrorElement);
+    });
+  };
+
+  window.backend.load(renderPhotosArr, onRequestError, LOAD_URL);
 
 })();
