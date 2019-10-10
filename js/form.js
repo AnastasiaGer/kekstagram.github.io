@@ -133,7 +133,7 @@
     document.body.addEventListener('click', function () {
       document.body.removeChild(uploadSuccessElement);
     });
-    document.body.addEventListener('keydown', function () {
+    document.addEventListener('keydown', function () {
       if (window.utils.isKeydownEsc) {
         document.body.removeChild(successMessageElement);
       }

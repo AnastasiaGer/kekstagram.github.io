@@ -35,11 +35,11 @@
     document.body.appendChild(uploadErrorElement);
     window.utils.showElement(uploadErrorElement);
     var requestErrorMessageElement = document.querySelector('.error');
-    var btnCloseOnRequestErrorElement = requestErrorMessageElement.querySelector('.error__button');
+    var btnCloseOnRequestErrorElement = requestErrorMessageElement.querySelector('.error__buttons');
     document.body.addEventListener('click', function () {
       document.body.removeChild(uploadErrorElement);
     });
-    document.body.addEventListener('keydown', function () {
+    document.addEventListener('keydown', function () {
       if (window.utils.isKeydownEsc) {
         document.body.removeChild(requestErrorMessageElement);
       }
