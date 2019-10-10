@@ -35,7 +35,7 @@
     document.body.appendChild(uploadErrorElement);
     window.utils.showElement(uploadErrorElement);
     var requestErrorMessageElement = document.querySelector('.error');
-    var btnCloseOnRequestErrorElement = requestErrorMessageElement.querySelector('.error__buttons');
+    var btnCloseOnRequestErrorElement = requestErrorMessageElement.querySelectorAll('.error__button');
     document.body.addEventListener('click', function () {
       document.body.removeChild(uploadErrorElement);
     });
