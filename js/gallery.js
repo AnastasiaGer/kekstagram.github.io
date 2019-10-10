@@ -42,4 +42,7 @@
 
   window.backend.load(renderPhotosArr, onRequestError, LOAD_URL);
 
+  window.gallery = {
+    onRequestError: onRequestError
+  };
 })();

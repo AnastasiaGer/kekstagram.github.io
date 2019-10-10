@@ -8,7 +8,7 @@
     VALID_POSITION: 1
   };
 
-  /* var SAVE_URL = 'https://js.dump.academy/kekstagram';*/
+  var SAVE_URL = 'https://js.dump.academy/kekstagram';
 
   // Загрузка изображения и показ формы редактирования
   var uploadPopapElement = document.querySelector('.img-upload__overlay');
@@ -122,19 +122,34 @@
     inputHashtagElement.removeAttribute('style');
   };
 
-  /* var onSuccess = function () {
+  var onSuccess = function () {
+    var successMessageTemplateElement = document.querySelector('#success').content.querySelector('.success');
+    var btnCloseOnSuccessElement = successMessageTemplateElement.querySelector('.success__button');
     window.utils.hideElement(uploadPopapElement);
-    closeUploadOverlay();
+    var uploadSuccessElement = successMessageTemplateElement.cloneNode(true);
+    document.body.appendChild(uploadSuccessElement);
+    window.utils.showElement(uploadSuccessElement);
+    /* document.body.addEventListener('click', function () {
+      document.body.removeChild(uploadSuccessElement);
+    });*/
+    document.body.addEventListener('keydown', function (evt) {
+      if (evt.keyCode === window.utils.isKeydownEsc) {
+        document.body.removeChild(successMessageTemplateElement);
+      }
+    });
+    btnCloseOnSuccessElement.addEventListener('click', function () {
+      document.body.removeChild(successMessageTemplateElement);
+    });
   };
 
   var formSubmitHandler = function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(formElement), onSuccess, window.backend.onRequestError, SAVE_URL);
-  };*/
+    window.backend.save(new FormData(formElement), onSuccess, window.gallery.onRequestError, SAVE_URL);
+  };
 
   inputHashtagElement.addEventListener('input', hashTagsInvalidHandler);
   submitButtonElement.addEventListener('click', hashTagsInvalidHandler);
-  /* formElement.addEventListener('submit', formSubmitHandler);*/
+  formElement.addEventListener('submit', formSubmitHandler);
 
   window.form = {
     uploadPopapElement: uploadPopapElement
