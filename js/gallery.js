@@ -30,13 +30,22 @@
   };
 
   var onRequestError = function () {
-    var errorMessageTemplateElement = document.querySelector('#error').content.querySelector('.error');
-    var uploadErrorElement = errorMessageTemplateElement.cloneNode(true);
+    var errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
+    var uploadErrorElement = errorMessageTemplate.cloneNode(true);
     document.body.appendChild(uploadErrorElement);
     window.utils.showElement(uploadErrorElement);
-
+    var requestErrorMessageElement = document.querySelector('.error');
+    var btnCloseOnRequestErrorElement = requestErrorMessageElement.querySelector('.error__button');
     document.body.addEventListener('click', function () {
       document.body.removeChild(uploadErrorElement);
+    });
+    document.body.addEventListener('keydown', function () {
+      if (window.utils.isKeydownEsc) {
+        document.body.removeChild(requestErrorMessageElement);
+      }
+    });
+    btnCloseOnRequestErrorElement.addEventListener('click', function () {
+      document.body.removeChild(requestErrorMessageElement);
     });
   };
 
