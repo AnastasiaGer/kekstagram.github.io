@@ -151,6 +151,7 @@
     btnCloseOnSuccessElement.addEventListener('click', function () {
       document.body.removeChild(successMessageElement);
     });
+    formElement.reset();
   };
 
   var formSubmitHandler = function (evt) {
