@@ -17,7 +17,7 @@
   };
 
   var onModalKeydownEsc = function (evt) {
-    window.utils.isKeydownEsc(evt, closeModal);
+    window.utils.performCallbackIfKeydownEsc(evt, closeModal);
   };
 
   bigPictureCancelElement.addEventListener('click', function () {
@@ -29,7 +29,7 @@
   });
 
   var onpictureElementKeydowEnter = function (evt) {
-    window.utils.isKeydownEnter(evt, showBigPhoto);
+    window.utils.performCallbackIfKeydownEnter(evt, showBigPhoto);
   };
 
   bigPictureElement.addEventListener('keydown', function () {

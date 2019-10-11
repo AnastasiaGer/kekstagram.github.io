@@ -30,7 +30,7 @@
   };
 
   var onOverlayKeydownEsc = function (evt) {
-    window.utils.isKeydownEsc(evt, closeUploadOverlay);
+    window.utils.performCallbackIfKeydownEsc(evt, closeUploadOverlay);
   };
 
   var onUploadInputChange = function () {
@@ -137,7 +137,7 @@
     });
 
     var onDocumentBodyKeydown = function (evt) {
-      window.utils.isKeydownEsc(evt, function () {
+      window.utils.performCallbackIfKeydownEsc(evt, function () {
         document.body.removeChild(successMessageElement);
         document.body.removeEventListener('keydown', onDocumentBodyKeydown);
       });
