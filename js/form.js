@@ -128,16 +128,23 @@
     var uploadSuccessElement = successMessageTemplate.cloneNode(true);
     document.body.appendChild(uploadSuccessElement);
     window.utils.showElement(uploadSuccessElement);
+
     var successMessageElement = document.querySelector('.success');
     var btnCloseOnSuccessElement = successMessageElement.querySelector('.success__button');
+
     document.body.addEventListener('click', function () {
-      document.body.removeChild(uploadSuccessElement);
+      document.body.removeChild(successMessageElement);
     });
-    document.addEventListener('keydown', function () {
-      if (window.utils.isKeydownEsc) {
+
+    var onDocumentBodyKeydown = function (evt) {
+      window.utils.isKeydownEsc(evt, function () {
         document.body.removeChild(successMessageElement);
-      }
-    });
+        document.body.removeEventListener('keydown', onDocumentBodyKeydown);
+      });
+    };
+
+    document.addEventListener('keydown', onDocumentBodyKeydown);
+
     btnCloseOnSuccessElement.addEventListener('click', function () {
       document.body.removeChild(successMessageElement);
     });

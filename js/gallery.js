@@ -34,16 +34,23 @@
     var uploadErrorElement = errorMessageTemplate.cloneNode(true);
     document.body.appendChild(uploadErrorElement);
     window.utils.showElement(uploadErrorElement);
+
     var requestErrorMessageElement = document.querySelector('.error');
     var btnCloseOnRequestErrorElement = requestErrorMessageElement.querySelectorAll('.error__button');
+
     document.body.addEventListener('click', function () {
-      document.body.removeChild(uploadErrorElement);
+      document.body.removeChild(requestErrorMessageElement);
     });
-    document.addEventListener('keydown', function () {
-      if (window.utils.isKeydownEsc) {
+
+    var onDocumentBodyKeydown = function (evt) {
+      window.utils.isKeydownEsc(evt, function () {
         document.body.removeChild(requestErrorMessageElement);
-      }
-    });
+        document.body.removeEventListener('keydown', onDocumentBodyKeydown);
+      });
+    };
+
+    document.addEventListener('keydown', onDocumentBodyKeydown);
+
     btnCloseOnRequestErrorElement.addEventListener('click', function () {
       document.body.removeChild(requestErrorMessageElement);
     });
