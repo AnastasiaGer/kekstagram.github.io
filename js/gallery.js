@@ -31,6 +31,8 @@
 
   var onRequestError = function () {
     var errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
+    var uploadPopapElement = document.querySelector('.img-upload__overlay');
+    window.utils.hideElement(uploadPopapElement);
     var uploadErrorElement = errorMessageTemplate.cloneNode(true);
     document.body.appendChild(uploadErrorElement);
     window.utils.showElement(uploadErrorElement);
@@ -38,9 +40,12 @@
     var requestErrorMessageElement = document.querySelector('.error');
     var btnCloseOnRequestErrorElement = requestErrorMessageElement.querySelectorAll('.error__button');
 
-    document.body.addEventListener('click', function () {
+    var onDocumentBodyClick = function () {
       document.body.removeChild(requestErrorMessageElement);
-    });
+      document.body.removeEventListener('click', onDocumentBodyClick);
+    };
+
+    document.body.addEventListener('click', onDocumentBodyClick);
 
     var onDocumentBodyKeydown = function (evt) {
       window.utils.performCallbackIfKeydownEsc(evt, function () {

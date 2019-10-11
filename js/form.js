@@ -132,9 +132,12 @@
     var successMessageElement = document.querySelector('.success');
     var btnCloseOnSuccessElement = successMessageElement.querySelector('.success__button');
 
-    document.body.addEventListener('click', function () {
+    var onDocumentBodyClick = function () {
       document.body.removeChild(successMessageElement);
-    });
+      document.body.removeEventListener('click', onDocumentBodyClick);
+    };
+
+    document.body.addEventListener('click', onDocumentBodyClick);
 
     var onDocumentBodyKeydown = function (evt) {
       window.utils.performCallbackIfKeydownEsc(evt, function () {
