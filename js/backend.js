@@ -29,11 +29,11 @@
       var xhr = makeXHR(onSuccess, onError);
       xhr.open('GET', url);
       xhr.send();
-    }
-    /* save: function (data, onSuccess, onError, url) {
+    },
+    save: function (data, onSuccess, onError, url) {
       var xhr = makeXHR(onSuccess, onError, url);
       xhr.open('POST', url);
       xhr.send(data);
-    },*/
+    }
   };
 })();

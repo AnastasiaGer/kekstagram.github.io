@@ -7,13 +7,13 @@
     ENTER: 13
   };
 
-  var isKeydownEsc = function (evt, callback) {
+  var performCallbackIfKeydownEsc = function (evt, callback) {
     if (evt.keyCode === KeyCode.ESC) {
       callback();
     }
   };
 
-  var isKeydownEnter = function (evt, callback) {
+  var performCallbackIfKeydownEnter = function (evt, callback) {
     if (evt.keyCode === KeyCode.ENTER) {
       callback();
     }
@@ -52,8 +52,8 @@
   };
 
   window.utils = {
-    isKeydownEsc: isKeydownEsc,
-    isKeydownEnter: isKeydownEnter,
+    performCallbackIfKeydownEsc: performCallbackIfKeydownEsc,
+    performCallbackIfKeydownEnter: performCallbackIfKeydownEnter,
     imageEditElement: imageEditElement,
     imageSetupElement: imageSetupElement,
     getRandomPoint: getRandomPoint,

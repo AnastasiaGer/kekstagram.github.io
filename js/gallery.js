@@ -30,16 +30,40 @@
   };
 
   var onRequestError = function () {
-    var errorMessageTemplateElement = document.querySelector('#error').content.querySelector('.error');
-    var uploadErrorElement = errorMessageTemplateElement.cloneNode(true);
+    var errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
+    var uploadPopapElement = document.querySelector('.img-upload__overlay');
+    window.utils.hideElement(uploadPopapElement);
+    var uploadErrorElement = errorMessageTemplate.cloneNode(true);
     document.body.appendChild(uploadErrorElement);
     window.utils.showElement(uploadErrorElement);
 
-    document.body.addEventListener('click', function () {
-      document.body.removeChild(uploadErrorElement);
+    var requestErrorMessageElement = document.querySelector('.error');
+    var btnCloseOnRequestErrorElement = requestErrorMessageElement.querySelectorAll('.error__button');
+
+    var onDocumentBodyClick = function () {
+      document.body.removeChild(requestErrorMessageElement);
+      document.body.removeEventListener('click', onDocumentBodyClick);
+    };
+
+    document.body.addEventListener('click', onDocumentBodyClick);
+
+    var onDocumentBodyKeydown = function (evt) {
+      window.utils.performCallbackIfKeydownEsc(evt, function () {
+        document.body.removeChild(requestErrorMessageElement);
+        document.body.removeEventListener('keydown', onDocumentBodyKeydown);
+      });
+    };
+
+    document.addEventListener('keydown', onDocumentBodyKeydown);
+
+    btnCloseOnRequestErrorElement.addEventListener('click', function () {
+      document.body.removeChild(requestErrorMessageElement);
     });
   };
 
   window.backend.load(renderPhotosArr, onRequestError, LOAD_URL);
 
+  window.gallery = {
+    onRequestError: onRequestError
+  };
 })();

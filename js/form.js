@@ -8,7 +8,7 @@
     VALID_POSITION: 1
   };
 
-  /* var SAVE_URL = 'https://js.dump.academy/kekstagram';*/
+  var SAVE_URL = 'https://js.dump.academy/kekstagram';
 
   // Загрузка изображения и показ формы редактирования
   var uploadPopapElement = document.querySelector('.img-upload__overlay');
@@ -30,7 +30,7 @@
   };
 
   var onOverlayKeydownEsc = function (evt) {
-    window.utils.isKeydownEsc(evt, closeUploadOverlay);
+    window.utils.performCallbackIfKeydownEsc(evt, closeUploadOverlay);
   };
 
   var onUploadInputChange = function () {
@@ -122,19 +122,46 @@
     inputHashtagElement.removeAttribute('style');
   };
 
-  /* var onSuccess = function () {
+  var onSuccess = function () {
+    var successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
     window.utils.hideElement(uploadPopapElement);
-    closeUploadOverlay();
+    var uploadSuccessElement = successMessageTemplate.cloneNode(true);
+    document.body.appendChild(uploadSuccessElement);
+    window.utils.showElement(uploadSuccessElement);
+
+    var successMessageElement = document.querySelector('.success');
+    var btnCloseOnSuccessElement = successMessageElement.querySelector('.success__button');
+
+    var onDocumentBodyClick = function () {
+      document.body.removeChild(successMessageElement);
+      document.body.removeEventListener('click', onDocumentBodyClick);
+    };
+
+    document.body.addEventListener('click', onDocumentBodyClick);
+
+    var onDocumentBodyKeydown = function (evt) {
+      window.utils.performCallbackIfKeydownEsc(evt, function () {
+        document.body.removeChild(successMessageElement);
+        document.body.removeEventListener('keydown', onDocumentBodyKeydown);
+      });
+    };
+
+    document.addEventListener('keydown', onDocumentBodyKeydown);
+
+    btnCloseOnSuccessElement.addEventListener('click', function () {
+      document.body.removeChild(successMessageElement);
+    });
+    formElement.reset();
   };
 
   var formSubmitHandler = function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(formElement), onSuccess, window.backend.onRequestError, SAVE_URL);
-  };*/
+    window.backend.save(new FormData(formElement), onSuccess, window.gallery.onRequestError, SAVE_URL);
+  };
 
   inputHashtagElement.addEventListener('input', hashTagsInvalidHandler);
   submitButtonElement.addEventListener('click', hashTagsInvalidHandler);
-  /* formElement.addEventListener('submit', formSubmitHandler);*/
+  formElement.addEventListener('submit', formSubmitHandler);
 
   window.form = {
     uploadPopapElement: uploadPopapElement
