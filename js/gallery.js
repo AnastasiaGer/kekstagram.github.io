@@ -18,10 +18,10 @@
     return pictureElement;
   };
 
-  var renderPhotosArr = function (data) {
+  var renderPhotosArr = function (photos) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < data.length; i++) {
-      fragment.appendChild(renderPhoto(data[i]));
+    for (var i = 0; i < photos.length; i++) {
+      fragment.appendChild(renderPhoto(photos[i]));
     }
     picturesElement.appendChild(fragment);
   };

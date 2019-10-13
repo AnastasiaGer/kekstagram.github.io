@@ -8,9 +8,9 @@
   var photoFiltersButtonElement = photoFilterElement.querySelectorAll('.img-filters__button');
   var photos = [];
 
-  var removePhoto = function () {
+  var removePhotos = function () {
     var photoBox = document.querySelector('.pictures');
-    var photo = photoBox.querySelectorAll('.picture__link');
+    var photo = photoBox.querySelectorAll('.picture');
     photo.forEach(function (item) {
       photoBox.removeChild(item);
     });
@@ -24,36 +24,29 @@
     });
   };
 
-  var sortPopular = function () {
-    window.gallery.renderPhotosArr(photos.slice().sort(function (left, right) {
-      return right.likes - left.likes;
-    }));
-  };
-
   var sortDiscussed = function () {
-    window.gallery.renderPhotosArr(photos.slice().sort(function (left, right) {
-      return right.comments - left.comments;
-    }));
+    return photos.slice().sort(function (left, right) {
+      return right.comments.length - left.comments.length;
+    });
   };
 
   var sortRandom = function () {
-    window.gallery.renderPhotosArr(photos.slice().sort(function () {
+    return photos.slice().sort(function () {
       return window.utils.getRandomPoint(0, 100) - window.utils.getRandomPoint(0, 100);
-    }));
+    });
   };
 
-  var photoSorting = function () {
+  var sortPhoto = function () {
     photoFilterElement.classList.remove('img-filters--inactive');
     photoFilterFormElement.addEventListener('click', window.debounce(function (evt) {
       removeActiveFilter();
       evt.target.classList.add('img-filters__button--active');
-      removePhoto();
+      removePhotos();
       if (evt.target.id === 'filter-random') {
         var randomPhotos = sortRandom(photos, PHOTOS_NUMBER);
         window.gallery.renderPhotosArr(randomPhotos);
       } else if (evt.target.id === 'filter-popular') {
-        var popularPhotos = sortPopular(photos);
-        window.gallery.renderPhotosArr(popularPhotos);
+        window.gallery.renderPhotosArr(photos);
       } else if (evt.target.id === 'filter-discussed') {
         var discussedPhotos = sortDiscussed(photos);
         window.gallery.renderPhotosArr(discussedPhotos);
@@ -64,7 +57,7 @@
   var onLoad = function (data) {
     photos = data;
     window.gallery.renderPhotosArr(photos);
-    photoSorting();
+    sortPhoto();
   };
 
   window.backend.load(onLoad, window.gallery.onRequestError, LOAD_URL);
