@@ -33,9 +33,8 @@
   var sortRandom = function (data) {
     var newPhotoArray = data.slice();
     newPhotoArray.length = PHOTOS_NUMBER;
-    var newPhotos = newPhotoArray;
-    newPhotos = window.utils.getShuffled(newPhotos);
-    return newPhotos;
+    newPhotoArray = window.utils.getShuffled(newPhotoArray);
+    return newPhotoArray;
   };
 
   var sortPhoto = function () {
