@@ -30,10 +30,12 @@
     });
   };
 
-  var sortRandom = function () {
-    return photos.slice().sort(function () {
-      return window.utils.getRandomPoint(0, 100) - window.utils.getRandomPoint(0, 100);
-    });
+  var sortRandom = function (data) {
+    var newPhotoArray = data.slice();
+    newPhotoArray.length = PHOTOS_NUMBER;
+    var newPhotos = newPhotoArray;
+    newPhotos = window.utils.getShuffled(newPhotos);
+    return newPhotos;
   };
 
   var sortPhoto = function () {
@@ -43,12 +45,12 @@
       evt.target.classList.add('img-filters__button--active');
       removePhotos();
       if (evt.target.id === 'filter-random') {
-        var randomPhotos = sortRandom(photos, PHOTOS_NUMBER);
+        var randomPhotos = sortRandom(photos);
         window.gallery.renderPhotosArr(randomPhotos);
       } else if (evt.target.id === 'filter-popular') {
         window.gallery.renderPhotosArr(photos);
       } else if (evt.target.id === 'filter-discussed') {
-        var discussedPhotos = sortDiscussed(photos);
+        var discussedPhotos = sortDiscussed();
         window.gallery.renderPhotosArr(discussedPhotos);
       }
     }));
