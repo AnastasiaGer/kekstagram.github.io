@@ -59,6 +59,7 @@
     photos = data;
     window.gallery.renderPhotosArr(photos);
     sortPhoto();
+    window.picture.loadMore();
   };
 
   window.backend.load(onLoad, window.gallery.onRequestError, LOAD_URL);
