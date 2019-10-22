@@ -122,41 +122,9 @@
     inputHashtagElement.removeAttribute('style');
   };
 
-  var onSuccess = function () {
-    var successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
-    window.utils.hideElement(uploadPopapElement);
-    var uploadSuccessElement = successMessageTemplate.cloneNode(true);
-    document.body.appendChild(uploadSuccessElement);
-    window.utils.showElement(uploadSuccessElement);
-
-    var successMessageElement = document.querySelector('.success');
-    var btnCloseOnSuccessElement = successMessageElement.querySelector('.success__button');
-
-    var onDocumentBodyClick = function () {
-      document.body.removeChild(successMessageElement);
-      document.body.removeEventListener('click', onDocumentBodyClick);
-    };
-
-    document.body.addEventListener('click', onDocumentBodyClick);
-
-    var onDocumentBodyKeydown = function (evt) {
-      window.utils.performCallbackIfKeydownEsc(evt, function () {
-        document.body.removeChild(successMessageElement);
-        document.body.removeEventListener('keydown', onDocumentBodyKeydown);
-      });
-    };
-
-    document.addEventListener('keydown', onDocumentBodyKeydown);
-
-    btnCloseOnSuccessElement.addEventListener('click', function () {
-      document.body.removeChild(successMessageElement);
-    });
-    formElement.reset();
-  };
-
   var formSubmitHandler = function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(formElement), onSuccess, window.gallery.onRequestError, SAVE_URL);
+    window.backend.save(new FormData(formElement), window.success.onSuccess, window.error.onRequestError, SAVE_URL);
   };
 
   inputHashtagElement.addEventListener('input', hashTagsInvalidHandler);
@@ -164,6 +132,8 @@
   formElement.addEventListener('submit', formSubmitHandler);
 
   window.form = {
-    uploadPopapElement: uploadPopapElement
+    uploadPopapElement: uploadPopapElement,
+    formElement: formElement,
+    formSubmitHandler: formSubmitHandler
   };
 })();

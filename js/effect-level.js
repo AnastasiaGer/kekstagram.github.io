@@ -48,7 +48,6 @@
 
   var previewElement = document.querySelector('.img-upload__preview');
   var effectValueElement = document.querySelector('[name="effect-level"]');
-  var lineElement = document.querySelector('.effect-level__line');
   var pinElement = document.querySelector('.effect-level__pin');
   var lineDepthElement = document.querySelector('.effect-level__depth');
   var blockPinElement = document.querySelector('.img-upload__effect-level');
@@ -56,7 +55,6 @@
 
   var makeValueFilter = function (value) {
     pinElement.style.left = value + 'px';
-    lineElement.style.width = value + 'px';
     lineDepthElement.style.width = value + 'px';
   };
 
@@ -120,6 +118,7 @@
       previewElement.removeAttribute('style');
       previewElement.classList.add(FilterCss[toggler.value].class);
       cheskScaleShow(toggler);
+      window.resize.setDefaultScale();
     }
   });
 
