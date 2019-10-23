@@ -61,5 +61,5 @@
     sortPhoto();
   };
 
-  window.backend.load(onLoad, window.gallery.onRequestError, LOAD_URL);
+  window.backend.load(onLoad, window.error.onRequestError, LOAD_URL);
 })();

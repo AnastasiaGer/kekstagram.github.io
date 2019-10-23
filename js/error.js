@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var SAVE_URL = 'https://js.dump.academy/kekstagram';
   var mainElement = document.querySelector('main');
   var errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
   var uploadPopapElement = document.querySelector('.img-upload__overlay');
@@ -20,9 +21,9 @@
   var onDocumentBodyKeydown = function (evt) {
     window.utils.performCallbackIfKeydownEsc(evt, closeRequestError);
   };
-  var SAVE_URL = 'https://js.dump.academy/kekstagram';
+
   var onBtnCloseOnRequestErrorClick = function () {
-    if (window.backend.save(new FormData(window.form.formElement), window.success.onSuccess, window.error.onRequestError, SAVE_URL)) {
+    if (window.backend.save(new FormData(window.form.formElement), window.success.onSuccess, onRequestError, SAVE_URL)) {
       closeRequestError();
     }
     window.form.formElement.reset();
