@@ -11,7 +11,8 @@
   var closeRequestError = function () {
     uploadErrorElement.remove();
     document.removeEventListener('keydown', onDocumentBodyKeydown);
-    uploadErrorElement.querySelector('.error__button').removeEventListener('click', onBtnCloseOnRequestErrorClick);
+    uploadErrorElement.querySelector('.error__button').removeEventListener('click', onBtnCloseOnRequestErrorClickOne);
+    uploadErrorElement.querySelector('.error__button').removeEventListener('click', onBtnCloseOnRequestErrorClickTwo);
     document.removeEventListener('click', onDocumentBodyClick);
   };
 
@@ -23,20 +24,23 @@
     window.utils.performCallbackIfKeydownEsc(evt, closeRequestError);
   };
 
-  var onBtnCloseOnRequestErrorClick = function () {
-    if (window.backend.save(new FormData(window.form.formElement), window.success.onSuccess, onRequestError, SAVE_URL)) {
-      closeRequestError();
-      window.form.formElement.reset();
-    } else if (window.backend.load(window.filters.onLoad, onRequestError, LOAD_URL)) {
-      closeRequestError();
-    }
+  var onBtnCloseOnRequestErrorClickOne = function () {
+    window.backend.save(new FormData(window.form.formElement), window.success.onSuccess, onRequestError, SAVE_URL);
+    closeRequestError();
+    window.form.formElement.reset();
+  };
+
+  var onBtnCloseOnRequestErrorClickTwo = function () {
+    window.backend.load(window.filters.onLoad, onRequestError, LOAD_URL);
+    closeRequestError();
   };
 
   var onRequestError = function () {
     window.utils.hideElement(uploadPopapElement);
     mainElement.appendChild(uploadErrorElement);
 
-    uploadErrorElement.querySelector('.error__button').addEventListener('click', onBtnCloseOnRequestErrorClick);
+    uploadErrorElement.querySelector('.error__button').addEventListener('click', onBtnCloseOnRequestErrorClickOne);
+    uploadErrorElement.querySelector('.error__button').addEventListener('click', onBtnCloseOnRequestErrorClickTwo);
     document.body.addEventListener('click', onDocumentBodyClick);
     document.addEventListener('keydown', onDocumentBodyKeydown);
   };
