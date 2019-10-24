@@ -62,4 +62,8 @@
   };
 
   window.backend.load(onLoad, window.error.onRequestError, LOAD_URL);
+
+  window.filters = {
+    onLoad: onLoad
+  };
 })();

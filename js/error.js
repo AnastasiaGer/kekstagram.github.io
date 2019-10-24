@@ -2,6 +2,7 @@
 
 (function () {
   var SAVE_URL = 'https://js.dump.academy/kekstagram';
+  var LOAD_URL = 'https://js.dump.academy/kekstagram/data';
   var mainElement = document.querySelector('main');
   var errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
   var uploadPopapElement = document.querySelector('.img-upload__overlay');
@@ -10,7 +11,7 @@
   var closeRequestError = function () {
     uploadErrorElement.remove();
     document.removeEventListener('keydown', onDocumentBodyKeydown);
-    document.removeEventListener('click', onBtnCloseOnRequestErrorClick);
+    uploadErrorElement.querySelector('.error__button').removeEventListener('click', onBtnCloseOnRequestErrorClick);
     document.removeEventListener('click', onDocumentBodyClick);
   };
 
@@ -25,8 +26,10 @@
   var onBtnCloseOnRequestErrorClick = function () {
     if (window.backend.save(new FormData(window.form.formElement), window.success.onSuccess, onRequestError, SAVE_URL)) {
       closeRequestError();
+      window.form.formElement.reset();
+    } else if (window.backend.load(window.filters.onLoad, onRequestError, LOAD_URL)) {
+      closeRequestError();
     }
-    window.form.formElement.reset();
   };
 
   var onRequestError = function () {
