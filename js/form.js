@@ -124,7 +124,7 @@
 
   var formSubmitHandler = function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(formElement), window.success.onSuccess, window.error.onRequestError, SAVE_URL);
+    window.backend.save(new FormData(formElement), window.success.onSuccess, window.error.onSaveRequestError, SAVE_URL);
   };
 
   inputHashtagElement.addEventListener('input', hashTagsInvalidHandler);

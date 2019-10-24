@@ -61,7 +61,7 @@
     sortPhoto();
   };
 
-  window.backend.load(onLoad, window.error.onRequestError, LOAD_URL);
+  window.backend.load(onLoad, window.error.onLoadRequestError, LOAD_URL);
 
   window.filters = {
     onLoad: onLoad

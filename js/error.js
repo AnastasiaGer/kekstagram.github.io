@@ -25,28 +25,39 @@
   };
 
   var onBtnCloseOnRequestErrorClickOne = function () {
-    window.backend.save(new FormData(window.form.formElement), window.success.onSuccess, onRequestError, SAVE_URL);
+    window.backend.save(new FormData(window.form.formElement), window.success.onSuccess, onSaveRequestError, SAVE_URL);
     closeRequestError();
     window.form.formElement.reset();
   };
 
   var onBtnCloseOnRequestErrorClickTwo = function () {
-    window.backend.load(window.filters.onLoad, onRequestError, LOAD_URL);
+    window.backend.load(window.filters.onLoad, onLoadRequestError, LOAD_URL);
     closeRequestError();
   };
 
-  var onRequestError = function () {
+  var onLoadRequestError = function () {
+    window.utils.hideElement(uploadPopapElement);
+    mainElement.appendChild(uploadErrorElement);
+
+    uploadErrorElement.querySelector('.error__button').addEventListener('click', onBtnCloseOnRequestErrorClickTwo);
+
+    document.body.addEventListener('click', onDocumentBodyClick);
+    document.addEventListener('keydown', onDocumentBodyKeydown);
+  };
+
+  var onSaveRequestError = function () {
     window.utils.hideElement(uploadPopapElement);
     mainElement.appendChild(uploadErrorElement);
 
     uploadErrorElement.querySelector('.error__button').addEventListener('click', onBtnCloseOnRequestErrorClickOne);
-    uploadErrorElement.querySelector('.error__button').addEventListener('click', onBtnCloseOnRequestErrorClickTwo);
+
     document.body.addEventListener('click', onDocumentBodyClick);
     document.addEventListener('keydown', onDocumentBodyKeydown);
   };
 
   window.error = {
-    onRequestError: onRequestError
+    onLoadRequestError: onLoadRequestError,
+    onSaveRequestError: onSaveRequestError
   };
 
 })();
