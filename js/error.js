@@ -11,8 +11,8 @@
   var closeRequestError = function () {
     uploadErrorElement.remove();
     document.removeEventListener('keydown', onDocumentBodyKeydown);
-    uploadErrorElement.querySelector('.error__button').removeEventListener('click', onBtnCloseOnRequestErrorClickOne);
-    uploadErrorElement.querySelector('.error__button').removeEventListener('click', onBtnCloseOnRequestErrorClickTwo);
+    uploadErrorElement.querySelector('.error__button').removeEventListener('click', onCloseSaveError);
+    uploadErrorElement.querySelector('.error__button').removeEventListener('click', onCloseLoadError);
     document.removeEventListener('click', onDocumentBodyClick);
   };
 
@@ -24,13 +24,13 @@
     window.utils.performCallbackIfKeydownEsc(evt, closeRequestError);
   };
 
-  var onBtnCloseOnRequestErrorClickOne = function () {
+  var onCloseSaveError = function () {
     window.backend.save(new FormData(window.form.formElement), window.success.onSuccess, onSaveRequestError, SAVE_URL);
     closeRequestError();
     window.form.formElement.reset();
   };
 
-  var onBtnCloseOnRequestErrorClickTwo = function () {
+  var onCloseLoadError = function () {
     window.backend.load(window.filters.onLoad, onLoadRequestError, LOAD_URL);
     closeRequestError();
   };
@@ -39,7 +39,7 @@
     window.utils.hideElement(uploadPopapElement);
     mainElement.appendChild(uploadErrorElement);
 
-    uploadErrorElement.querySelector('.error__button').addEventListener('click', onBtnCloseOnRequestErrorClickTwo);
+    uploadErrorElement.querySelector('.error__button').addEventListener('click', onCloseLoadError);
 
     document.body.addEventListener('click', onDocumentBodyClick);
     document.addEventListener('keydown', onDocumentBodyKeydown);
@@ -49,7 +49,7 @@
     window.utils.hideElement(uploadPopapElement);
     mainElement.appendChild(uploadErrorElement);
 
-    uploadErrorElement.querySelector('.error__button').addEventListener('click', onBtnCloseOnRequestErrorClickOne);
+    uploadErrorElement.querySelector('.error__button').addEventListener('click', onCloseSaveError);
 
     document.body.addEventListener('click', onDocumentBodyClick);
     document.addEventListener('keydown', onDocumentBodyKeydown);
