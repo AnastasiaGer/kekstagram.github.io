@@ -30,14 +30,6 @@
     closeModal();
   });
 
-  var onpictureElementKeydowEnter = function (evt) {
-    window.utils.performCallbackIfKeydownEnter(evt, showBigPhoto);
-  };
-
-  bigPictureElement.addEventListener('keydown', function () {
-    showBigPhoto();
-  });
-
   var showCommentsCount = function (comments) {
     var displayedComments = bigPictureElement.querySelectorAll('.social__comment:not(.visually-hidden)').length;
     var commentsCountElement = displayedComments + ' из ' + '<span class="comments-count">' + comments.length + '</span>' + ' комментариев';
@@ -95,7 +87,6 @@
     } else {
       btnLoadMore.classList.add('visually-hidden');
     }
-    document.addEventListener('keydown', onpictureElementKeydowEnter);
     document.addEventListener('keydown', onModalKeydownEsc);
   };
 
