@@ -10,10 +10,10 @@
   var imagePreviewWrapperElement = document.querySelector('.img-upload__preview');
   var sizeValueElement = document.querySelector('.scale__control--value');
 
-  window.utils.imageSetupElement.addEventListener('change', function () {
+  var setDefaultScale = function () {
     sizeValueElement.value = 100 + '%';
-    imagePreviewWrapperElement.style = 'transform: scale(1)';
-  });
+    imagePreviewWrapperElement.style = '';
+  };
 
   var getCurentSizeNumber = function () {
     return Number(sizeValueElement.value.slice(0, -1));
@@ -42,4 +42,8 @@
       sizePlusHandler();
     }
   });
+
+  window.resize = {
+    setDefaultScale: setDefaultScale
+  };
 })();

@@ -12,9 +12,7 @@
     pictureElement.addEventListener('click', function () {
       window.picture.showBigPhoto(photo);
     });
-    pictureElement.addEventListener('keydown', function () {
-      window.picture.showBigPhoto(photo);
-    });
+
     return pictureElement;
   };
 
@@ -26,40 +24,7 @@
     picturesElement.appendChild(fragment);
   };
 
-  var onRequestError = function () {
-    var errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
-    var uploadPopapElement = document.querySelector('.img-upload__overlay');
-    window.utils.hideElement(uploadPopapElement);
-    var uploadErrorElement = errorMessageTemplate.cloneNode(true);
-    document.body.appendChild(uploadErrorElement);
-    window.utils.showElement(uploadErrorElement);
-
-    var requestErrorMessageElement = document.querySelector('.error');
-    var btnCloseOnRequestErrorElement = requestErrorMessageElement.querySelectorAll('.error__button');
-
-    var onDocumentBodyClick = function () {
-      document.body.removeChild(requestErrorMessageElement);
-      document.body.removeEventListener('click', onDocumentBodyClick);
-    };
-
-    document.body.addEventListener('click', onDocumentBodyClick);
-
-    var onDocumentBodyKeydown = function (evt) {
-      window.utils.performCallbackIfKeydownEsc(evt, function () {
-        document.body.removeChild(requestErrorMessageElement);
-        document.body.removeEventListener('keydown', onDocumentBodyKeydown);
-      });
-    };
-
-    document.addEventListener('keydown', onDocumentBodyKeydown);
-
-    btnCloseOnRequestErrorElement.addEventListener('click', function () {
-      document.body.removeChild(requestErrorMessageElement);
-    });
-  };
-
   window.gallery = {
-    renderPhotosArr: renderPhotosArr,
-    onRequestError: onRequestError
+    renderPhotosArr: renderPhotosArr
   };
 })();
