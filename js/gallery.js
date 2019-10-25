@@ -13,6 +13,15 @@
       window.picture.showBigPhoto(photo);
     });
 
+    var onRenderPhotoKeydown = function (evt) {
+      window.utils.performCallbackIfKeydownEnter(evt, function () {
+        window.picture.showBigPhoto(photo);
+        document.body.removeEventListener('keydown', onRenderPhotoKeydown);
+      });
+    };
+
+    pictureElement.addEventListener('keydown', onRenderPhotoKeydown);
+
     return pictureElement;
   };
 

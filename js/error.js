@@ -57,7 +57,8 @@
 
   window.error = {
     onLoadRequestError: onLoadRequestError,
-    onSaveRequestError: onSaveRequestError
+    onSaveRequestError: onSaveRequestError,
+    errorMessageTemplate: errorMessageTemplate
   };
 
 })();

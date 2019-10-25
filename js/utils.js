@@ -21,21 +21,12 @@
   var imageEditElement = document.querySelector('.img-upload__overlay');
   var imageSetupElement = document.querySelector('#upload-file');
 
-  var getRandomPoint = function (min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  };
-
-  var getRandomElement = function (arr) {
-    var randomindex = Math.floor(Math.random() * arr.length);
-    return arr[randomindex];
+  var hideElement = function (element) {
+    element.classList.add('hidden');
   };
 
   var showElement = function (element) {
     element.classList.remove('hidden');
-  };
-
-  var hideElement = function (element) {
-    element.classList.add('hidden');
   };
 
   var setInvalidClass = function (element) {
@@ -74,10 +65,8 @@
     performCallbackIfKeydownEnter: performCallbackIfKeydownEnter,
     imageEditElement: imageEditElement,
     imageSetupElement: imageSetupElement,
-    getRandomPoint: getRandomPoint,
-    getRandomElement: getRandomElement,
-    showElement: showElement,
     hideElement: hideElement,
+    showElement: showElement,
     setInvalidClass: setInvalidClass,
     unsetInvalidClass: unsetInvalidClass,
     checkInvalidClass: checkInvalidClass,
