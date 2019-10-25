@@ -15,32 +15,22 @@
     imagePreviewWrapperElement.style = '';
   };
 
-  var getCurentSizeNumber = function () {
-    return Number(sizeValueElement.value.slice(0, -1));
-  };
-
-  var sizeMinusHandler = function () {
-    var newSizeNumber = getCurentSizeNumber() - STEP_RESIZE;
-    sizeValueElement.value = newSizeNumber + '%';
-    imagePreviewWrapperElement.style = 'transform: scale(' + (newSizeNumber / 100) + ')';
-  };
-
-  var sizePlusHandler = function () {
-    var newSizeNumber = getCurentSizeNumber() + STEP_RESIZE;
-    sizeValueElement.value = newSizeNumber + '%';
-    imagePreviewWrapperElement.style = 'transform: scale(' + (newSizeNumber / 100) + ')';
+  var setPhotoScale = function (value) {
+    var currentScale = parseInt(sizeValueElement.value, 10);
+    currentScale += STEP_RESIZE * value;
+    if (currentScale >= MIN_RESIZE && currentScale <= MAX_RESIZE) {
+      sizeValueElement.value = currentScale + '%';
+      imagePreviewWrapperElement.style.transform = 'scale(' + currentScale / 100 + ')';
+    }
+    return currentScale;
   };
 
   resizeMinusElement.addEventListener('click', function () {
-    if (getCurentSizeNumber() > MIN_RESIZE) {
-      sizeMinusHandler();
-    }
+    setPhotoScale(-1);
   });
 
   resizePlusElement.addEventListener('click', function () {
-    if (getCurentSizeNumber() < MAX_RESIZE) {
-      sizePlusHandler();
-    }
+    setPhotoScale(1);
   });
 
   window.resize = {

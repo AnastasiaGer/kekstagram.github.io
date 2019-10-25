@@ -10,48 +10,49 @@
 
   var FilterCss = {
     none: {
-      class: 'effects__preview--none'
+      CLASS: 'effects__preview--none'
     },
     chrome: {
-      class: 'effects__preview--chrome',
-      css: 'grayscale',
-      max: 1,
-      min: 0
+      CLASS: 'effects__preview--chrome',
+      CSS: 'grayscale',
+      MAX: 1,
+      MIN: 0
     },
     sepia: {
-      class: 'effects__preview--sepia',
-      css: 'sepia',
-      max: 1,
-      min: 0
+      CLASS: 'effects__preview--sepia',
+      CSS: 'sepia',
+      MAX: 1,
+      MIN: 0
     },
     marvin: {
-      class: 'effects__preview--marvin',
-      css: 'invert',
-      max: 100,
-      min: 0,
-      postFix: '%'
+      CLASS: 'effects__preview--marvin',
+      CSS: 'invert',
+      MAX: 100,
+      MIN: 0,
+      UNIT: '%'
     },
     phobos: {
-      class: 'effects__preview--phobos',
-      css: 'blur',
-      max: 3,
-      min: 0,
-      postFix: 'px'
+      CLASS: 'effects__preview--phobos',
+      CSS: 'blur',
+      MAX: 3,
+      MIN: 0,
+      UNIT: 'px'
     },
     heat: {
-      class: 'effects__preview--heat',
-      css: 'brightness',
-      max: 3,
-      min: 1
+      CLASS: 'effects__preview--heat',
+      CSS: 'brightness',
+      MAX: 3,
+      MIN: 1
     }
   };
-
+  var uploadElement = document.querySelector('.img-upload');
+  var effectLevelElement = uploadElement.querySelector('.effect-level');
   var previewElement = document.querySelector('.img-upload__preview');
-  var effectValueElement = document.querySelector('[name="effect-level"]');
-  var pinElement = document.querySelector('.effect-level__pin');
-  var lineDepthElement = document.querySelector('.effect-level__depth');
-  var blockPinElement = document.querySelector('.img-upload__effect-level');
-  var effectListElement = document.querySelector('.effects__list');
+  var effectValueElement = effectLevelElement.querySelector('.effect-level__value');
+  var pinElement = effectLevelElement.querySelector('.effect-level__pin');
+  var lineDepthElement = effectLevelElement.querySelector('.effect-level__depth');
+  var blockPinElement = effectLevelElement.querySelector('.img-upload__effect-level');
+  var effectListElement = uploadElement.querySelector('.effects__list');
 
   var makeValueFilter = function (value) {
     pinElement.style.left = value + 'px';
@@ -88,7 +89,7 @@
       }
 
       makeValueFilter(position);
-      filterChange(FilterCss[selectedFilter].max, FilterCss[selectedFilter].min, FilterCss[selectedFilter].css, position, FilterCss[selectedFilter].postFix);
+      filterChange(FilterCss[selectedFilter].MAX, FilterCss[selectedFilter].MIN, FilterCss[selectedFilter].CSS, position, FilterCss[selectedFilter].UNIT);
     };
 
     var onMouseUp = function (upEvt) {
@@ -116,7 +117,7 @@
       makeValueFilter(PinPosition.MAX);
       previewElement.classList = UPLOAD_PREVIEW_CLASS;
       previewElement.removeAttribute('style');
-      previewElement.classList.add(FilterCss[toggler.value].class);
+      previewElement.classList.add(FilterCss[toggler.value].CLASS);
       cheskScaleShow(toggler);
       window.resize.setDefaultScale();
     }

@@ -72,7 +72,7 @@
 
   var showBigPhoto = function (photo) {
     window.utils.showElement(bigPictureElement);
-    bigPictureElement.querySelector('.big-picture__img').querySelector('img').src = photo.url;
+    bigPictureElement.querySelector('.big-picture__img img').src = photo.url;
     bigPictureElement.querySelector('.likes-count').textContent = photo.likes;
     bigPictureElement.querySelector('.social__caption').textContent = photo.description;
     document.querySelector('body').classList.add(MODAL_OPEN_CLASS);

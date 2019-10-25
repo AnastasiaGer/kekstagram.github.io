@@ -1,5 +1,7 @@
 'use strict';
 (function () {
+  var SAVE_URL = 'https://js.dump.academy/kekstagram';
+
   var HashtagData = {
     START_POSITION: 0,
     MAX_COUNT: 5,
@@ -7,8 +9,6 @@
     MAX_LENGTH: 20,
     VALID_POSITION: 1
   };
-
-  var SAVE_URL = 'https://js.dump.academy/kekstagram';
 
   // Загрузка изображения и показ формы редактирования
   var uploadPopapElement = document.querySelector('.img-upload__overlay');

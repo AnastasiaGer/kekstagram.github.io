@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var HIDDEN_CLASS = 'hidden';
   var KeyCode = {
     ESC: 27,
     ENTER: 13
@@ -31,12 +30,12 @@
     return arr[randomindex];
   };
 
-  var showElement = function (elem) {
-    elem.classList.remove(HIDDEN_CLASS);
+  var showElement = function (element) {
+    element.classList.remove('hidden');
   };
 
-  var hideElement = function (elem) {
-    elem.classList.add(HIDDEN_CLASS);
+  var hideElement = function (element) {
+    element.classList.add('hidden');
   };
 
   var setInvalidClass = function (element) {
