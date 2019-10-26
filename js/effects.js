@@ -46,14 +46,16 @@
     }
   };
   var uploadElement = document.querySelector('.img-upload');
+  var previewElement = document.querySelector('.img-upload__preview img');
+
   var effectLevelElement = uploadElement.querySelector('.effect-level');
-  var previewElement = document.querySelector('.img-upload__preview');
+  var effectListElement = uploadElement.querySelector('.effects__list');
+
   var effectValueElement = effectLevelElement.querySelector('.effect-level__value');
   var pinElement = effectLevelElement.querySelector('.effect-level__pin');
   var lineDepthElement = effectLevelElement.querySelector('.effect-level__depth');
-  var blockPinElement = effectLevelElement.querySelector('.img-upload__effect-level');
-  var effectListElement = uploadElement.querySelector('.effects__list');
 
+  var blockPinElement = uploadElement.querySelector('.img-upload__effect-level');
   var makeValueFilter = function (value) {
     pinElement.style.left = value + 'px';
     lineDepthElement.style.width = value + 'px';
@@ -65,12 +67,12 @@
     var change = '' + filter + '(' + value + postFix + ')';
 
     previewElement.style.filter = change;
-    effectValueElement.value = value;
+    effectValueElement.value = Math.round(value * 100);
   };
 
   pinElement.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
-    var selectedFilter = document.querySelector('input[type="radio"]:checked').value;
+    var selectedFilter = document.querySelector('.effects__radio:checked').value;
     var startCoords = evt.clientX;
 
     var onMouseMove = function (moveEvt) {
@@ -115,7 +117,7 @@
     var toggler = evt.target.closest('input');
     if (toggler) {
       makeValueFilter(PinPosition.MAX);
-      previewElement.classList = UPLOAD_PREVIEW_CLASS;
+      previewElement.className = UPLOAD_PREVIEW_CLASS;
       previewElement.removeAttribute('style');
       previewElement.classList.add(FilterCss[toggler.value].CLASS);
       cheskScaleShow(toggler);
@@ -127,7 +129,9 @@
     makeValueFilter(PinPosition.MAX);
     previewElement.removeAttribute('style');
     window.utils.hideElement(blockPinElement);
-    previewElement.classList = UPLOAD_PREVIEW_CLASS;
+    previewElement.className = UPLOAD_PREVIEW_CLASS;
   };
-  window.makeDeafultFilter = makeDeafultFilter;
+  window.effects = {
+    makeDeafultFilter: makeDeafultFilter,
+  };
 })();

@@ -27,6 +27,7 @@
     inputHashtagElement.removeEventListener('invalid', hashTagsInvalidHandler);
     inputHashtagElement.removeEventListener('input', hashTagsInvalidHandler);
     formElement.reset();
+    window.effects.makeDeafultFilter();
   };
 
   var onOverlayKeydownEsc = function (evt) {
@@ -39,7 +40,7 @@
     document.addEventListener('keydown', onOverlayKeydownEsc);
     inputHashtagElement.addEventListener('invalid', hashTagsInvalidHandler);
     inputHashtagElement.addEventListener('input', hashTagsInvalidHandler);
-    window.makeDeafultFilter();
+    window.effects.makeDeafultFilter();
   };
 
   var onInputFocus = function () {
