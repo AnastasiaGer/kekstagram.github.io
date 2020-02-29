@@ -12,10 +12,17 @@
   },
   "devDependencies": {
     "eslint": "6.3.0",
-    "eslint-config-htmlacademy": "0.5.2"
+    "eslint-config-htmlacademy": "0.5.2",
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-jshint": "^2.1.0",
+    "gulp-uglify": "^3.0.2",
+    "jshint": "^2.11.0"
   },
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "del": "^5.1.0"
+  },
   "scripts": {
     "test": "eslint js/"
   },
