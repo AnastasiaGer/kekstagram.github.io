@@ -1,8 +1,8 @@
 'use strict';
 
 (function () {
-  var SAVE_URL = 'https://js.dump.academy/kekstagram';
-  var LOAD_URL = 'https://js.dump.academy/kekstagram/data';
+  var SAVE_URL = 'https://javascript.pages.academy/kekstagram';
+  var LOAD_URL = 'https://javascript.pages.academy/kekstagram/data';
   var mainElement = document.querySelector('main');
   var errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
   var uploadPopapElement = document.querySelector('.img-upload__overlay');

@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  var SAVE_URL = 'https://js.dump.academy/kekstagram';
+  var SAVE_URL = 'https://javascript.pages.academy/kekstagram';
 
   var HashtagData = {
     START_POSITION: 0,

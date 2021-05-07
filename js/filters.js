@@ -2,7 +2,7 @@
 
 (function () {
   var PHOTOS_NUMBER = 10;
-  var LOAD_URL = 'https://js.dump.academy/kekstagram/data';
+  var LOAD_URL = 'https://javascript.pages.academy/kekstagram/data';
   var photoFilterElement = document.querySelector('.img-filters');
   var photoFilterFormElement = photoFilterElement.querySelector('.img-filters__form');
   var photoFiltersButtonElement = photoFilterElement.querySelectorAll('.img-filters__button');
